@@ -1,0 +1,17 @@
+{
+    "name": "formationpeweb/retro-shop",
+    "autoload": {
+        "psr-4": {
+            "Formationpeweb\\RetroShop\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Windryuu",
+            "email": "brayan.jean@laposte.net"
+        }
+    ],
+    "require": {
+        "symfony/var-dumper": "^5.3"
+    }
+}
