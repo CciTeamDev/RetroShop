@@ -1,0 +1,12 @@
+{
+    "name": "formationpeweb/retro-shop",
+    "description": "Site ecommerce",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.3"
+    }
+}
