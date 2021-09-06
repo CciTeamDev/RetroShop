@@ -7,10 +7,12 @@ abstract class AbstractController{
 
     const BASEPATH = 'templates/';
 
-    public function render(string $path,array $datas){
+    public function render(string $path,
+    //array $datas
+    ){
         ob_start();//début de la mémoire tampon;
         include self::BASEPATH.'header.html';
-        extract($datas);
+    //    extract($datas);
         $absolutPath = self::BASEPATH.$path;
         include $absolutPath;
         include self::BASEPATH.'footer.html';
