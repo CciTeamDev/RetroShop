@@ -41,7 +41,7 @@ class UserController extends AbstractController{
                 "email" => [
                     "filter" => FILTER_VALIDATE_EMAIL
                 ],
-                "pwd" => [],
+                "mot_passe" => [],
                 "date_creation"=>[],
                 "adresse" => [
                     "filter" => FILTER_VALIDATE_REGEXP,
@@ -81,7 +81,7 @@ class UserController extends AbstractController{
             if ($signup_post["email"] === false) {
                 $error_messages[] = "Email inexistant";
             }
-            if (empty(trim($signup_post["pwd"]))) {
+            if (empty(trim($signup_post["mot_passe"]))) {
                 $error_messages[] = "Mot de passe inexistant";
             }
             if ($signup_post["adresse"] === false) {
@@ -110,7 +110,7 @@ class UserController extends AbstractController{
                             ->setGenre($signup_post["genre"])
                             ->setDate_naissance($signup_post["date_naissance"])
                             ->setEmail($signup_post["email"])
-                            ->setPwd(password_hash($signup_post["pwd"],PASSWORD_DEFAULT))
+                            ->setmot_passe(password_hash($signup_post["mot_passe"],PASSWORD_DEFAULT))
                             ->setAdresse($signup_post["adresse"])
                             ->setCp($signup_post["cp"])
                             ->setVille($signup_post["ville"])
@@ -151,7 +151,7 @@ class UserController extends AbstractController{
                 "email" => [
                     "filter" => FILTER_VALIDATE_EMAIL
                 ],
-                "pwd" => []
+                "mot_passe" => []
             ];
         
             $signin_user = filter_input_array(INPUT_POST, $args);
@@ -160,14 +160,14 @@ class UserController extends AbstractController{
                 $error_messages[] = "Email inexistant";
             }
         
-            if (empty(trim($signin_user["pwd"]))) {
+            if (empty(trim($signin_user["mot_passe"]))) {
                 $error_messages[] = "Mot de passe inexistant";
             }
         
             if (empty($error_messages)) {
                 $signin_user = (new User())
                     ->setEmail($signin_user["email"])
-                    ->setPwd($signin_user["pwd"]);
+                    ->setmot_passe($signin_user["mot_passe"]);
 
                 
         
@@ -176,10 +176,10 @@ class UserController extends AbstractController{
                     $user = $userDao->getUserByEmail($signin_user->getEmail());
                     //$var = "a";
                     if (!is_null($user)) {
-                        //dd($signin_user->getPwd(),password_hash($signin_user->getPwd(),PASSWORD_DEFAULT),$user->getPwd(),password_hash($var,PASSWORD_DEFAULT));
+                        //dd($signin_user->getmot_passe(),password_hash($signin_user->getmot_passe(),PASSWORD_DEFAULT),$user->getmot_passe(),password_hash($var,PASSWORD_DEFAULT));
                         if (password_verify(
-                            $signin_user->getPwd(),
-                            $user->getPwd())) {
+                            $signin_user->getmot_passe(),
+                            $user->getmot_passe())) {
                                 
 
                                 //dd($user,$user->getId_user());
@@ -283,7 +283,7 @@ class UserController extends AbstractController{
                     "email" => [
                         "filter" => FILTER_VALIDATE_EMAIL
                     ],
-                    "pwd" => [],
+                    "mot_passe" => [],
                     "date_creation"=>[],
                     "adresse" => [
                         "filter" => FILTER_VALIDATE_REGEXP,
@@ -322,7 +322,7 @@ class UserController extends AbstractController{
                 if ($edit_post["email"] === false) {
                     $error_messages[] = "Email inexistant";
                 }
-                if (empty(trim($edit_post["pwd"]))) {
+                if (empty(trim($edit_post["mot_passe"]))) {
                     $error_messages[] = "Mot de passe inexistant";
                 }
                 if ($edit_post["adresse"] === false) {
@@ -348,7 +348,7 @@ class UserController extends AbstractController{
                         ->setGenre($edit_post["genre"])
                         ->setDate_naissance($edit_post["date_naissance"])
                         ->setEmail($edit_post["email"])
-                        ->setPwd(password_hash($edit_post["pwd"], PASSWORD_DEFAULT))
+                        ->setmot_passe(password_hash($edit_post["mot_passe"], PASSWORD_DEFAULT))
                         ->setAdresse($edit_post["adresse"])
                         ->setCp($edit_post["cp"])
                         ->setVille($edit_post["ville"])
