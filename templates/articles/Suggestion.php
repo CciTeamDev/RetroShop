@@ -1,3 +1,3 @@
 <?php foreach ($articles as $article) { 
-echo $repos->getTitle(); 
+echo $article["name_object"];
 } 

@@ -12,8 +12,10 @@ class ArticleController extends AbstractController {
         // Récupérer les objets et les stockent dans une variable sous forme de tableau 
         $repo = new ArticleRepository();
         $articles = $repo->getArticles();
-        dd($articles);
-        $this->render("articles/Suggestion.php", [$articles]);
+
+        $this->render("articles/Suggestion.php", [
+            'articles' => $articles
+        ]);
 
 
     }
