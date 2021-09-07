@@ -33,6 +33,7 @@ class Router
         }
         foreach($this->routes[$request->getMethod()] as $route) {
             if($route->match($this->uri)){
+                
                 return $route->call();
             }
         }

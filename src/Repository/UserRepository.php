@@ -11,8 +11,8 @@ private PDO $pdo;
 
     public function __construct()
     {
-        $userbd = new AccesseurDB;
-        $userbd -> getPdo();
+        $userbd = new AccesseurDB();
+        $this->pdo = $userbd -> getPdo();
     }
 
     public function addUser(User $user):Void
@@ -37,22 +37,25 @@ private PDO $pdo;
 
     public function getUserById(int $id):?User
     {
-        $req = $this->pdo->prepare("SELECT * FROM user");
-        $req->execute(["id_user => $id"]);
+        $req = $this->pdo->prepare("SELECT id_user,nom,prenom,genre,date_naissance,email,adresse,cp,ville,tel,date_creation
+        FROM user WHERE id_user = :id_user");
+        
+        $req->execute([":id_user" => $id]);
         $result = $req->fetch(PDO::FETCH_ASSOC);
+        
         if(!empty($result)){
             return(new User())
-            ->setId_user($result["id"])
+            ->setId_user($result["id_user"])
             ->setNom($result["nom"])
-            ->setPrenom($result["Prenom"])
-            ->setGenre($result["Genre"])
-            ->setDate_naissance($result["Date_naissance"])
-            ->setEmail($result["Email"])
-            ->setDate_creation($result["Date_creation"])
-            ->setAdresse($result["Adresse"])
-            ->setCp($result["Cp"])
-            ->setVille($result["Ville"])
-            ->setTel($result["Tel"]);
+            ->setPrenom($result["prenom"])
+            ->setGenre($result["genre"])
+            ->setDate_naissance($result["date_naissance"])
+            ->setEmail($result["email"])
+            ->setAdresse($result["adresse"])
+            ->setCp($result["cp"])
+            ->setVille($result["ville"])
+            ->setTel($result["tel"])
+            ->setDate_creation($result["date_creation"]);
         } else {
             return null;
         }
@@ -61,16 +64,19 @@ private PDO $pdo;
     public function getUserByEmail(string $email): ?User
     {
         $req = $this->pdo->prepare(
-            "SELECT id_user,email FROM user WHERE email =:email"
+            "SELECT id_user,email,pwd FROM user WHERE email =:email"
         );
         $req->execute([":email"=>$email]);
         $result = $req->fetch(PDO::FETCH_ASSOC);
         if(!empty($result)) {
             return (new User())
                 ->setId_user($result["id_user"])
-                ->setEmail($result["email"]);
+                ->setEmail($result["email"])
+                ->setPwd($result["pwd"]);
         } else {
             return null;
         }
     }
+
+    
 }

@@ -105,25 +105,7 @@ class User {
         return $this;
     }
 
-    /**
-     * Get the value of date_naissance
-     */ 
-    public function getDate_naissance()
-    {
-        return $this->date_naissance;
-    }
 
-    /**
-     * Set the value of date_naissance
-     *
-     * @return  self
-     */ 
-    public function setDate_naissance($date_naissance)
-    {
-        $this->date_naissance = $date_naissance;
-
-        return $this;
-    }
 
     /**
      * Get the value of email
@@ -261,6 +243,26 @@ class User {
     public function setTel($tel)
     {
         $this->tel = $tel;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of date_naissance
+     */ 
+    public function getDate_naissance()
+    {
+        return $this->date_naissance;
+    }
+
+    /**
+     * Set the value of date_naissance
+     *
+     * @return  self
+     */ 
+    public function setDate_naissance($date_naissance)
+    {
+        $this->date_naissance = $date_naissance;
 
         return $this;
     }
