@@ -15,6 +15,7 @@ $artController = new ArticleController();
 //on ajoute les routes dispo dans l'appli
 $router->add("lol",function(){echo 'Bro wtf';},$request->getMethod());
 $router->add("articles",[$artController, 'index'],$request->getMethod());
+$router->add("ficheproduit/:id", [$artController, "show"], $request->getMethod());
 
 //on lance notre application
 try {

@@ -16,7 +16,20 @@ class ArticleController extends AbstractController {
         $this->render("articles/Suggestion.php", [
             'articles' => $articles
         ]);
-
-
     }
+
+    public function show($params)
+    {
+        // 
+        
+        $repo = new ArticleRepository();
+        
+        $articles = $repo->getOneArticle($params[0]);
+        // dd($articles);
+        $this->render("articles/FicheProduit.php", [
+            'articles' => $articles
+        ]);
+        
+    }
+     
 }
