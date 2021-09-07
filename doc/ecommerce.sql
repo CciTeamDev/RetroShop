@@ -2,10 +2,12 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : mar. 07 sep. 2021 à 10:07
--- Version du serveur : 10.4.21-MariaDB
--- Version de PHP : 8.0.10
+
+-- Host: 127.0.0.1
+-- Generation Time: Sep 07, 2021 at 11:40 AM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 8.0.8
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +20,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `ecommerce`
+-- Database: `ecommerce`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `categorie`
+-- Table structure for table `categorie`
 --
 
 CREATE TABLE `categorie` (
@@ -32,10 +34,22 @@ CREATE TABLE `categorie` (
   `nom_categorie` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `categorie`
+--
+
+INSERT INTO `categorie` (`id_categorie`, `nom_categorie`) VALUES
+(1, 'jeux_videos'),
+(2, 'jeux_plateaux'),
+(3, 'librairie'),
+(4, 'films'),
+(5, 'musique'),
+(6, 'vetements');
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commande`
+-- Table structure for table `commande`
 --
 
 CREATE TABLE `commande` (
@@ -51,7 +65,7 @@ CREATE TABLE `commande` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `note_produit`
+-- Table structure for table `note_produit`
 --
 
 CREATE TABLE `note_produit` (
@@ -64,7 +78,7 @@ CREATE TABLE `note_produit` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `panier`
+-- Table structure for table `panier`
 --
 
 CREATE TABLE `panier` (
@@ -76,7 +90,7 @@ CREATE TABLE `panier` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `produit`
+-- Table structure for table `produit`
 --
 
 CREATE TABLE `produit` (
@@ -89,7 +103,8 @@ CREATE TABLE `produit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `produit`
+
+
 --
 
 INSERT INTO `produit` (`id_produit`, `ref`, `nom_produit`, `descrip`, `prix_unitaire`, `date_en_ligne`) VALUES
@@ -107,7 +122,7 @@ INSERT INTO `produit` (`id_produit`, `ref`, `nom_produit`, `descrip`, `prix_unit
 -- --------------------------------------------------------
 
 --
--- Structure de la table `produit_categorie`
+-- Table structure for table `produit_categorie`
 --
 
 CREATE TABLE `produit_categorie` (
@@ -115,10 +130,26 @@ CREATE TABLE `produit_categorie` (
   `id_categorie` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `produit_categorie`
+--
+
+INSERT INTO `produit_categorie` (`id_produit`, `id_categorie`) VALUES
+(1, 3),
+(2, 6),
+(3, 1),
+(4, 3),
+(5, 3),
+(6, 4),
+(7, 5),
+(8, 6),
+(9, 2),
+(10, 6);
+
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -137,7 +168,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `user`
+
 --
 
 INSERT INTO `user` (`id_user`, `nom`, `prenom`, `genre`, `date_naissance`, `email`, `mot_passe`, `adresse`, `cp`, `ville`, `tel`, `date_creation`) VALUES
@@ -153,18 +184,18 @@ INSERT INTO `user` (`id_user`, `nom`, `prenom`, `genre`, `date_naissance`, `emai
 (10, 'Ruger', 'Jessee', 'M', '2021-08-11', 'jruger9@biblegateway.com', 'xzwsDuL', '1816 Northfield Center', '78135', 'Futian', '423 810 22', '2021-08-29 00:00:00');
 
 --
--- Index pour les tables déchargées
+
 --
 
 --
--- Index pour la table `categorie`
+-- Indexes for table `categorie`
 --
 ALTER TABLE `categorie`
   ADD PRIMARY KEY (`id_categorie`),
   ADD KEY `id_categorie` (`id_categorie`);
 
 --
--- Index pour la table `commande`
+-- Indexes for table `commande`
 --
 ALTER TABLE `commande`
   ADD PRIMARY KEY (`id_commande`),
@@ -173,14 +204,14 @@ ALTER TABLE `commande`
   ADD KEY `id_panier` (`id_panier`);
 
 --
--- Index pour la table `note_produit`
+-- Indexes for table `note_produit`
 --
 ALTER TABLE `note_produit`
   ADD KEY `id_produit` (`id_produit`,`id_user`),
   ADD KEY `id_user` (`id_user`);
 
 --
--- Index pour la table `panier`
+-- Indexes for table `panier`
 --
 ALTER TABLE `panier`
   ADD PRIMARY KEY (`id_panier`),
@@ -188,86 +219,86 @@ ALTER TABLE `panier`
   ADD KEY `id_produit` (`id_produit`);
 
 --
--- Index pour la table `produit`
+-- Indexes for table `produit`
 --
 ALTER TABLE `produit`
   ADD PRIMARY KEY (`id_produit`),
   ADD KEY `id_produit` (`id_produit`);
 
 --
--- Index pour la table `produit_categorie`
+-- Indexes for table `produit_categorie`
 --
 ALTER TABLE `produit_categorie`
   ADD KEY `id_produit` (`id_produit`,`id_categorie`),
   ADD KEY `id_categorie` (`id_categorie`);
 
 --
--- Index pour la table `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
   ADD KEY `id_user` (`id_user`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `categorie`
+-- AUTO_INCREMENT for table `categorie`
 --
 ALTER TABLE `categorie`
-  MODIFY `id_categorie` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_categorie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT pour la table `commande`
+-- AUTO_INCREMENT for table `commande`
 --
 ALTER TABLE `commande`
   MODIFY `id_commande` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `panier`
+-- AUTO_INCREMENT for table `panier`
 --
 ALTER TABLE `panier`
   MODIFY `id_panier` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `produit`
+-- AUTO_INCREMENT for table `produit`
 --
 ALTER TABLE `produit`
   MODIFY `id_produit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT pour la table `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `commande`
+-- Constraints for table `commande`
 --
 ALTER TABLE `commande`
   ADD CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
   ADD CONSTRAINT `commande_ibfk_2` FOREIGN KEY (`id_panier`) REFERENCES `panier` (`id_panier`);
 
 --
--- Contraintes pour la table `note_produit`
+-- Constraints for table `note_produit`
 --
 ALTER TABLE `note_produit`
   ADD CONSTRAINT `note_produit_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
   ADD CONSTRAINT `note_produit_ibfk_2` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`);
 
 --
--- Contraintes pour la table `panier`
+-- Constraints for table `panier`
 --
 ALTER TABLE `panier`
   ADD CONSTRAINT `panier_ibfk_1` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`);
 
 --
--- Contraintes pour la table `produit_categorie`
+-- Constraints for table `produit_categorie`
 --
 ALTER TABLE `produit_categorie`
   ADD CONSTRAINT `produit_categorie_ibfk_1` FOREIGN KEY (`id_categorie`) REFERENCES `categorie` (`id_categorie`),
