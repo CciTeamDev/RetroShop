@@ -7,7 +7,6 @@ class Article{
     private int $ref;
     private string $nom_produit;
     private string $descrip;
-    // private int $id_categorie;
     private float $prix_unitaire;
     private  $date_en_ligne; //DateTime erreur
 
@@ -21,6 +20,14 @@ class Article{
         // $this->$prix_unitaire = $prix_unitaire;
         // $this->date_en_ligne = $date_en_ligne;
     }
+    /**
+     * Get the value of id_produit
+     */ 
+    public function getId_produit()
+    {
+        return $this->id_produit;
+    }
+
 
     /**
      * Set the value of id_produit
@@ -94,13 +101,6 @@ class Article{
         return $this;
     }
 
-    /**
-     * Get the value of id_produit
-     */ 
-    public function getId_produit()
-    {
-        return $this->id_produit;
-    }
 
     /**
      * Get the value of ref
