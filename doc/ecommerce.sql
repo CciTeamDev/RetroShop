@@ -156,7 +156,7 @@ CREATE TABLE `user` (
   `genre` varchar(3) NOT NULL,
   `date_naissance` date NOT NULL,
   `email` varchar(50) NOT NULL,
-  `mot_passe` varchar(50) NOT NULL,
+  `mot_passe` varchar(255) NOT NULL,
   `adresse` text NOT NULL,
   `cp` varchar(5) NOT NULL,
   `ville` varchar(60) NOT NULL,
