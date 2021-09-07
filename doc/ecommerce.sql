@@ -2,10 +2,12 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
+
 -- Host: 127.0.0.1
 -- Generation Time: Sep 07, 2021 at 11:40 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -101,7 +103,8 @@ CREATE TABLE `produit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `produit`
+
+
 --
 
 INSERT INTO `produit` (`id_produit`, `ref`, `nom_produit`, `descrip`, `prix_unitaire`, `date_en_ligne`) VALUES
@@ -156,7 +159,7 @@ CREATE TABLE `user` (
   `genre` varchar(3) NOT NULL,
   `date_naissance` date NOT NULL,
   `email` varchar(50) NOT NULL,
-  `mot_passe` varchar(50) NOT NULL,
+  `mot_passe` varchar(255) NOT NULL,
   `adresse` text NOT NULL,
   `cp` varchar(5) NOT NULL,
   `ville` varchar(60) NOT NULL,
@@ -165,7 +168,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+
 --
 
 INSERT INTO `user` (`id_user`, `nom`, `prenom`, `genre`, `date_naissance`, `email`, `mot_passe`, `adresse`, `cp`, `ville`, `tel`, `date_creation`) VALUES
@@ -181,7 +184,7 @@ INSERT INTO `user` (`id_user`, `nom`, `prenom`, `genre`, `date_naissance`, `emai
 (10, 'Ruger', 'Jessee', 'M', '2021-08-11', 'jruger9@biblegateway.com', 'xzwsDuL', '1816 Northfield Center', '78135', 'Futian', '423 810 22', '2021-08-29 00:00:00');
 
 --
--- Indexes for dumped tables
+
 --
 
 --
