@@ -18,7 +18,7 @@ class ArticleRepository
 
     public function getArticles()
     {
-        $req = $this->pdo->query("SELECT * FROM objects");
+        $req = $this->pdo->query("SELECT name_object FROM objects order by date_creation desc limit 5");
         return $req->fetchAll();
     }
 }
