@@ -9,7 +9,7 @@ class AcceseurDB
     {
         return new PDO(
             'mysql:host=localhost;
-            dbname=test;charset=utf8', 
+            dbname=ecommerce;charset=utf8', 
             'root', 
             '');
     }
