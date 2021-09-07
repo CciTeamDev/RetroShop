@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Core;
-
+//match les routes dans le tableau du router
 class Route{
     private string $path;
     private $callable;
