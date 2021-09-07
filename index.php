@@ -19,7 +19,11 @@ $categController = new CategorieController();
 
 $router->add("",function(){echo 'Bro wtf';},$request->getMethod());
 $router->add("articles",[$artController, 'index'],$request->getMethod());
+
+$router->add("ficheproduit/:id", [$artController, "show"], $request->getMethod());
+
 $router->add("categorie/:id",[$categController, 'index'],$request->getMethod());
+
 
 //on lance notre application
 try {

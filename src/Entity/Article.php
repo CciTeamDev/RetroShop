@@ -2,22 +2,24 @@
 
 namespace App\Entity;
 
-class Produit{
+class Article{
     private int $id_produit; 
+    private int $ref;
     private string $nom_produit;
-    private string $description;
-    private int $id_categorie;
+    private string $descrip;
+    // private int $id_categorie;
     private float $prix_unitaire;
-    private  $date_creation; //DateTime erreur
+    private  $date_en_ligne; //DateTime erreur
 
-    public function __construct($id_produit,$nom_produit, $description, $id_categorie, $prix_unitaire, $date_creation)
+    public function __construct()
     {
-        $this->id_produit = $id_produit;
-        $this->nom_produit = $nom_produit;
-        $this->description = $description;
-        $this->id_categorie = $id_categorie;
-        $this->$prix_unitaire = $prix_unitaire;
-        $this->date_creation = $date_creation;
+        // $this->id_produit = $id_produit;
+        // $this->ref = $ref;
+        // $this->nom_produit = $nom_produit;
+        // $this->description = $description;
+        // $this->id_categorie = $id_categorie;
+        // $this->$prix_unitaire = $prix_unitaire;
+        // $this->date_en_ligne = $date_en_ligne;
     }
 
     /**
@@ -55,9 +57,9 @@ class Produit{
     /**
      * Get the value of description
      */ 
-    public function getDescription()
+    public function getDescrip()
     {
-        return $this->description;
+        return $this->descrip;
     }
 
     /**
@@ -65,9 +67,9 @@ class Produit{
      *
      * @return  self
      */ 
-    public function setDescription($description)
+    public function setDescrip($descrip)
     {
-        $this->description = $description;
+        $this->descrip = $descrip;
 
         return $this;
     }
@@ -93,26 +95,6 @@ class Produit{
     }
 
     /**
-     * Get the value of date_creation
-     */ 
-    public function getDate_creation()
-    {
-        return $this->date_creation;
-    }
-
-    /**
-     * Set the value of date_creation
-     *
-     * @return  self
-     */ 
-    public function setDate_creation($date_creation)
-    {
-        $this->date_creation = $date_creation;
-
-        return $this;
-    }
-
-    /**
      * Get the value of id_produit
      */ 
     public function getId_produit()
@@ -120,24 +102,42 @@ class Produit{
         return $this->id_produit;
     }
 
-  
-
     /**
-     * Get the value of id_categorie
+     * Get the value of ref
      */ 
-    public function getId_categorie()
+    public function getRef()
     {
-        return $this->id_categorie;
+        return $this->ref;
     }
 
     /**
-     * Set the value of id_categorie
+     * Set the value of ref
      *
      * @return  self
      */ 
-    public function setId_categorie($id_categorie)
+    public function setRef($ref)
     {
-        $this->id_categorie = $id_categorie;
+        $this->ref = $ref;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of date_en_ligne
+     */ 
+    public function getDate_en_ligne()
+    {
+        return $this->date_en_ligne;
+    }
+
+    /**
+     * Set the value of date_en_ligne
+     *
+     * @return  self
+     */ 
+    public function setDate_en_ligne($date_en_ligne)
+    {
+        $this->date_en_ligne = $date_en_ligne;
 
         return $this;
     }
