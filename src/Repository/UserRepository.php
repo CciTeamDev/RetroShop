@@ -78,5 +78,34 @@ private PDO $pdo;
         }
     }
 
-    
+    public function updateUser(User $user): void
+    {
+        $req = $this->pdo->prepare("UPDATE user
+                                    SET nom = :nom,
+                                        prenom = :prenom,
+                                        genre = :genre,
+                                        date_naissance = :date_naissance,
+                                        email = :email,
+                                        pwd = :pwd,
+                                        adresse = :adresse,
+                                        cp = :cp,
+                                        ville = :ville,
+                                        tel = :tel
+                                    WHERE id_user = :id_user
+        ");
+        $req->execute([
+            ":id_user" => $user->getId_user(),
+            ":nom" => $user->getNom(),
+            ":prenom" => $user->getPrenom(),
+            ":genre" => $user->getGenre(),
+            ":date_naissance" => $user->getDate_naissance(),
+            ":email" => $user->getEmail(),
+            ":pwd" => $user->getPwd(),
+            ":adresse" => $user->getAdresse(),
+            ":cp"=> $user->getCp(),
+            ":ville"=> $user->getVille(),
+            ":tel"=> $user->getTel()
+            
+        ]);
+    }
 }

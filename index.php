@@ -52,7 +52,7 @@ $router->add("signup",function(){(new UserRepository()); (new UserController())-
 $router->add("signin",function(){(new UserRepository());(new UserController())->userSignin();},$request->getMethod());
 $router->add("signout",function(){(new UserRepository()); (new UserController())->userSignout();},$request->getMethod());
 $router->add("user/show",function(){(new UserRepository()); (new UserController())->userShow(unserialize($_SESSION["user"])->getId_user());},$request->getMethod());
-
+$router->add("user/update",function(){(new UserRepository()); (new UserController())->userUpdate(unserialize($_SESSION["user"])->getId_user());},$request->getMethod());
 //on lance notre application
 try {
     $router->run($request);

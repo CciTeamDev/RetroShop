@@ -5,8 +5,6 @@ namespace App\Controller;
 use App\Core\Abstract\AbstractController;
 use App\Repository\UserRepository;
 use App\Entity\User;
-use App\Core\Router;
-use App\Core\Session;
 use PDOException;
 
 class UserController extends AbstractController{
@@ -258,17 +256,16 @@ class UserController extends AbstractController{
             try {
                 $userDao = new UserRepository();
                 $user = $userDao->getUserById($user_id);
-                $genres = (new GenreRepository())->getAllGenre();
-                $groupes = (new GroupeRepository())->getAllGroupe();
+               
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
         
             if (empty($_POST)) {
                 if (!is_null($user)) {
-                    require TEMPLATES . DIRECTORY_SEPARATOR . "edit_user.php";
+                    $this->render('user/edit_user.php',["user" => $user]);
                 } else {
-                    header("Location:" . ROOT . "display_articles_controller.php");
+                    header("Location:../");
                     exit;
                 }
             } else {
@@ -276,39 +273,49 @@ class UserController extends AbstractController{
                     "nom" => [
                         "filter" => FILTER_VALIDATE_REGEXP,
                         "options" => [
-                            "regexp" => "#^[A-Z]#"
+                            "regexp" => "#^[\w\s-]+$#u"
                         ]
                     ],
                     "prenom" => [
                         "filter" => FILTER_VALIDATE_REGEXP,
                         "options" => [
-                            "regexp" => "#^[A-Z]#"
+                            "regexp" => "#^[\w\s-]+$#u"
                         ]
                     ],
-                    "pseudo" => [
+                    "genre"=>[],
+                    "date_naissance"=>[],
+                    "email" => [
+                        "filter" => FILTER_VALIDATE_EMAIL
+                    ],
+                    "pwd" => [],
+                    "date_creation"=>[],
+                    "adresse" => [
                         "filter" => FILTER_VALIDATE_REGEXP,
                         "options" => [
                             "regexp" => "#^[\w\s-]+$#u"
                         ]
                     ],
-                    "email" => [
-                        "filter" => FILTER_VALIDATE_EMAIL
+                    "cp" => [
+                        "filter" => FILTER_VALIDATE_REGEXP,
+                        "options" => [
+                            "regexp" => "#^[\w\s-]+$#u"
+                        ]
                     ],
-                    "pwd" => [],
-                    "genre" => [
-                        "filter" => FILTER_VALIDATE_INT
+                    "ville" => [
+                        "filter" => FILTER_VALIDATE_REGEXP,
+                        "options" => [
+                            "regexp" => "#^[\w\s-]+$#u"
+                        ]
                     ],
-                    "groupe" => [
-                        "filter" => FILTER_VALIDATE_INT
+                    "tel" => [
+                        "filter" => FILTER_VALIDATE_REGEXP,
+                        "options" => [
+                            "regexp" => "#^[\w\s-]+$#u"
+                        ]
                     ]
                 ];
         
                 $edit_post = filter_input_array(INPUT_POST, $args);
-        
-                if (empty($_POST["nom"])) $edit_post["nom"] = null;
-                if (empty($_POST["prenom"])) $edit_post["prenom"] = null;
-                if (empty($_POST["genre"])) $edit_post["genre"] = null;
-                if (empty($_POST["groupe"])) $edit_post["groupe"] = null;
         
                 if ($edit_post["nom"] === false) {
                     $error_messages[] = "Nom inexistant";
@@ -330,31 +337,22 @@ class UserController extends AbstractController{
                     $error_messages[] = "Mot de passe inexistant";
                 }
         
-                if ($edit_post["genre"] === false) {
-                    $error_messages[] = "Genre inexistant";
-                }
-        
-                if ($edit_post["groupe"] === false) {
-                    $error_messages[] = "Groupe inexistant";
-                }
+                
         
                 if (empty($error_messages)) {
-                    foreach ($genres as $genre) {
-                        if ($genre->getId_genre() === $edit_post["genre"]) $edit_post["genre"] = $genre->getType();
-                    }
-                    foreach ($groupes as $groupe) {
-                        if ($groupe->getId_group() === $edit_post["groupe"]) $edit_post["groupe"] = $groupe->getNom();
-                    }
         
-                    $edit_user = (new User)
+                    $edit_user = (new User())
                         ->setId_user($user_id)
                         ->setNom($edit_post["nom"])
                         ->setPrenom($edit_post["prenom"])
-                        ->setPseudo($edit_post["pseudo"])
+                        ->setGenre($edit_post["genre"])
+                        ->setDate_naissance($edit_post["date_naissance"])
                         ->setEmail($edit_post["email"])
                         ->setPwd(password_hash($edit_post["pwd"], PASSWORD_DEFAULT))
-                        ->setGenre($edit_post["genre"])
-                        ->setGroup($edit_post["groupe"]);
+                        ->setAdresse($edit_post["adresse"])
+                        ->setCp($edit_post["cp"])
+                        ->setVille($edit_post["ville"])
+                        ->setTel($edit_post["tel"]);
         
                     try {
                         $userDao->updateUser($edit_user);
@@ -367,16 +365,15 @@ class UserController extends AbstractController{
                     try {
                         $userDao = new UserRepository();
                         $user = $userDao->getUserById($user_id);
-                        $genres = (new GenreRepository())->getAllGenre();
-                        $groupes = (new GroupeRepository())->getAllGroupe();
+                        
                     } catch (PDOException $e) {
                         echo $e->getMessage();
                     }
-                    require TEMPLATES . DIRECTORY_SEPARATOR . "edit_user.php";
+                    $this->render('user/edit_user.php',["user" => $user]);
                 }
             }
         } else {
-            header("Location:" . HTTP . "article");
+            header("Location:../");
             exit;
         }
     }
