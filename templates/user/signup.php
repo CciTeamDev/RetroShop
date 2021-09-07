@@ -1,7 +1,6 @@
 <?php
 $title = "Identifiez vous !";
-//include 'header.php';
-//dump($errors);
+
 if (!empty($errors)) : ?>
     <div>
         <ul>

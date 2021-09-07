@@ -1,6 +1,6 @@
 <?php
-//$title = "Identifiez vous !";
-//include 'header.php';
+$title = "Identifiez vous !";
+
 
 if (!empty($errors)) : ?>
     <div>
@@ -18,5 +18,3 @@ if (!empty($errors)) : ?>
     <input type="submit" value="Envoyer">
 </form>
 
-<?php 
-//include 'footer.php'; ?>

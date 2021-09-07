@@ -9,22 +9,19 @@ use PDOException;
 
 class UserController extends AbstractController{
     public function __construct(
-        //private Session $session
+        
     ) {
 
     }
 
     public function userSignup(){
         if(isset($_SESSION["user"])){
-            header("Location:../uuu");
+            header("Location:../");
             exit;
         }
 
         if (empty($_POST)) {
-            
-            //include TEMPLATES . DIRECTORY_SEPARATOR . "user" . DIRECTORY_SEPARATOR . "signup.php"; //??
             $this->render('user/signup.php',[]);
-            
         } else {
             $args = [
                 "nom" => [
@@ -99,13 +96,12 @@ class UserController extends AbstractController{
             if ($signup_post["tel"] === false) {
                 $error_messages[] = "tel inexistant";
             }
-            //dump($signup_post,$error_messages,empty($error_messages));
+            
             if(empty($error_messages)) {
                 try{
-                        //dd($args);
+                        
                         $userDao = new UserRepository();
                         $exist_user = $userDao->getUserByEmail($signup_post["email"]);
-                        //dump($exist_user,is_null($exist_user));
 
                         if (is_null($exist_user)) {
                             $signup_user = (new User())
@@ -119,14 +115,13 @@ class UserController extends AbstractController{
                             ->setCp($signup_post["cp"])
                             ->setVille($signup_post["ville"])
                             ->setTel($signup_post["tel"]);
-                            //dd($signup_post);
+
                         $userDao->addUser($signup_user);
                         header("Location:../");
                         exit;
                         }else{
                             $error_messages[] = "Cet email est déjà utilisé";
-                            //dump($error_messages);
-                            //include TEMPLATES . DIRECTORY_SEPARATOR . "user" . DIRECTORY_SEPARATOR . "signup.php";
+                      
                             $this->render('user/signup.php',[
                                 "errors" => $error_messages
 
@@ -252,6 +247,7 @@ class UserController extends AbstractController{
     }
 
     public function userUpdate($user_id){
+        $title = "Editer un utilisateur";
         if ($user_id !== false) {
             try {
                 $userDao = new UserRepository();
@@ -263,7 +259,7 @@ class UserController extends AbstractController{
         
             if (empty($_POST)) {
                 if (!is_null($user)) {
-                    $this->render('user/edit_user.php',["user" => $user]);
+                    $this->render('user/edit_user.php',["user" => $user,"title"=>$title]);
                 } else {
                     header("Location:../");
                     exit;
@@ -318,24 +314,28 @@ class UserController extends AbstractController{
                 $edit_post = filter_input_array(INPUT_POST, $args);
         
                 if ($edit_post["nom"] === false) {
-                    $error_messages[] = "Nom inexistant";
-                }
-        
-                if ($edit_post["prenom"] === false) {
-                    $error_messages[] = "Prénom inexistant";
-                }
-        
-                if ($edit_post["pseudo"] === false) {
                     $error_messages[] = "Pseudo inexistant";
                 }
-        
+                if ($edit_post["prenom"] === false) {
+                    $error_messages[] = "Pseudo inexistant";
+                }
                 if ($edit_post["email"] === false) {
                     $error_messages[] = "Email inexistant";
                 }
-        
                 if (empty(trim($edit_post["pwd"]))) {
                     $error_messages[] = "Mot de passe inexistant";
                 }
+                if ($edit_post["adresse"] === false) {
+                    $error_messages[] = "adresse inexistant";
+                }
+                if ($edit_post["cp"] === false) {
+                    $error_messages[] = "cp inexistant";
+                }
+                if ($edit_post["ville"] === false) {
+                    $error_messages[] = "ville inexistant";
+                }
+                if ($edit_post["tel"] === false) {
+                    $error_messages[] = "tel inexistant";}
         
                 
         
@@ -369,7 +369,7 @@ class UserController extends AbstractController{
                     } catch (PDOException $e) {
                         echo $e->getMessage();
                     }
-                    $this->render('user/edit_user.php',["user" => $user]);
+                    $this->render('user/edit_user.php',["user" => $user,"errors"=>$error_messages,"title"=>$title]);
                 }
             }
         } else {

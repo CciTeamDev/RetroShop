@@ -1,12 +1,11 @@
 <?php
 $title = "Editer un utilisateur";
-//include 'header.php';
 
-if (!empty($error_messages)) :
+if (!empty($errors)) :
 ?>
     <div>
         <ul>
-            <?php foreach ($error_messages as $msg) : ?>
+            <?php foreach ($errors as $msg) : ?>
                 <li><?= $msg ?></li>
             <?php endforeach; ?>
         </ul>
@@ -27,5 +26,3 @@ if (!empty($error_messages)) :
     <label for="tel">tel : </label><input type="text" name="tel" id="tel"value="<?= $user->getTel() ?>">
     <input type="submit" value="Envoyer">
 </form>
-
-<?php //include 'footer.php'; ?>

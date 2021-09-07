@@ -11,8 +11,12 @@ abstract class AbstractController{
     array $datas
     ){
         ob_start();//début de la mémoire tampon;
-        //include self::BASEPATH.'header.html';
         extract($datas);
+        if(!$title){
+            $title = 'Titre par défault';
+        }
+        include self::BASEPATH.'/hfn/header.php';
+        
         $absolutPath = self::BASEPATH.$path;
         include $absolutPath;
         //include self::BASEPATH.'footer.html';
