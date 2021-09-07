@@ -24,6 +24,7 @@ $router->add("ficheproduit/:id", [$artController, "show"], $request->getMethod()
 
 $router->add("categorie/:id",[$categController, 'index'],$request->getMethod());
 
+$router->add("search/:word",[$artController, 'search'],$request->getMethod());
 
 //on lance notre application
 try {
