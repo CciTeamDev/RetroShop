@@ -11,7 +11,7 @@ class User {
     private string $genre;
     private string $date_naissance; //datetime
     private string $email;
-    private string $pwd;
+    private string $mot_passe;
     private ?string $date_creation; //datetime
     private string $adresse;
     private int $cp;
@@ -128,21 +128,21 @@ class User {
     }
 
     /**
-     * Get the value of pwd
+     * Get the value of mot_passe
      */ 
-    public function getPwd()
+    public function getmot_passe()
     {
-        return $this->pwd;
+        return $this->mot_passe;
     }
 
     /**
-     * Set the value of pwd
+     * Set the value of mot_passe
      *
      * @return  self
      */ 
-    public function setPwd($pwd)
+    public function setmot_passe($mot_passe)
     {
-        $this->pwd = $pwd;
+        $this->mot_passe = $mot_passe;
 
         return $this;
     }

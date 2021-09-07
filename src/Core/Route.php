@@ -32,7 +32,7 @@ class Route{
             return false;
         }
         //Retire le premier match du tableau
-        dump($matches);
+        //dump($matches);
         array_shift($matches);
         //on passe les param dans la propriété.
         $this->matches = $matches;

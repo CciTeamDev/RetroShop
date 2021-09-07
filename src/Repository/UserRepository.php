@@ -18,8 +18,8 @@ private PDO $pdo;
     public function addUser(User $user):Void
     {
         $req = $this->pdo->prepare("INSERT INTO 
-                                    user (nom,prenom,genre,date_naissance,email,pwd,adresse,cp,ville,tel) 
-                                    VALUES (:nom,:prenom,:genre,:date_naissance,:email,:pwd,:adresse,:cp,:ville,:tel)");
+                                    user (nom,prenom,genre,date_naissance,email,mot_passe,adresse,cp,ville,tel) 
+                                    VALUES (:nom,:prenom,:genre,:date_naissance,:email,:mot_passe,:adresse,:cp,:ville,:tel)");
         $req->execute([
             
             ":nom" => $user->getNom(),
@@ -27,7 +27,7 @@ private PDO $pdo;
             ":genre" => $user->getGenre(),
             ":date_naissance" => $user->getDate_naissance(),
             ":email" => $user->getEmail(),
-            ":pwd"=>$user->getPwd(),
+            ":mot_passe"=>$user->getmot_passe(),
             ":adresse"=>$user->getAdresse(),
             ":cp"=>$user->getCp(),
             ":ville"=>$user->getVille(),
@@ -64,7 +64,7 @@ private PDO $pdo;
     public function getUserByEmail(string $email): ?User
     {
         $req = $this->pdo->prepare(
-            "SELECT id_user,email,pwd FROM user WHERE email =:email"
+            "SELECT id_user,email,mot_passe FROM user WHERE email =:email"
         );
         $req->execute([":email"=>$email]);
         $result = $req->fetch(PDO::FETCH_ASSOC);
@@ -72,7 +72,7 @@ private PDO $pdo;
             return (new User())
                 ->setId_user($result["id_user"])
                 ->setEmail($result["email"])
-                ->setPwd($result["pwd"]);
+                ->setmot_passe($result["mot_passe"]);
         } else {
             return null;
         }
@@ -86,7 +86,7 @@ private PDO $pdo;
                                         genre = :genre,
                                         date_naissance = :date_naissance,
                                         email = :email,
-                                        pwd = :pwd,
+                                        mot_passe = :mot_passe,
                                         adresse = :adresse,
                                         cp = :cp,
                                         ville = :ville,
@@ -100,7 +100,7 @@ private PDO $pdo;
             ":genre" => $user->getGenre(),
             ":date_naissance" => $user->getDate_naissance(),
             ":email" => $user->getEmail(),
-            ":pwd" => $user->getPwd(),
+            ":mot_passe" => $user->getmot_passe(),
             ":adresse" => $user->getAdresse(),
             ":cp"=> $user->getCp(),
             ":ville"=> $user->getVille(),
