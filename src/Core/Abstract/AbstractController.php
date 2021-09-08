@@ -23,7 +23,6 @@ abstract class AbstractController{
         echo ob_get_clean();//vidange de la mémoire tampon et fermeture;
         //dump(ob_get_clean());
     
-        
     }
 
     

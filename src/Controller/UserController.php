@@ -15,13 +15,14 @@ class UserController extends AbstractController{
     }
 
     public function userSignup(){
+        $title = "boop";
         if(isset($_SESSION["user"])){
             header("Location:../");
             exit;
         }
 
         if (empty($_POST)) {
-            $this->render('user/signup.php',[]);
+            $this->render('user/signup.php',["title"=>$title]);
         } else {
             $args = [
                 "nom" => [
@@ -124,6 +125,7 @@ class UserController extends AbstractController{
                       
                             $this->render('user/signup.php',[
                                 "errors" => $error_messages
+                                ,"title"=>$title
 
                             ]);
                         }
@@ -131,13 +133,14 @@ class UserController extends AbstractController{
                     echo $e->getMessage();
                 }
             } else {
-                $this->render('user/signup.php',["errors" => $error_messages]);
+                $this->render('user/signup.php',["errors" => $error_messages,"title"=>$title]);
             }
         }
 
     }
 
     public function userSignin(){
+        $title = "bloop";
         if (isset($_SESSION["user"])) {
             header("Location:");
             exit;
@@ -145,7 +148,7 @@ class UserController extends AbstractController{
         
         if (empty($_POST)) {
             //include TEMPLATES . DIRECTORY_SEPARATOR . "signin.php";
-            $this->render('user/signin.php',[]);
+            $this->render('user/signin.php',["title"=>$title]);
         } else {
             $args = [
                 "email" => [
@@ -186,24 +189,24 @@ class UserController extends AbstractController{
                             $user = $userDao->getUserById($user->getId_user()); //erreur
                             
                             session_regenerate_id(true);
-                            $_SESSION["user"] = serialize($user);
+                            $_SESSION["user"] = $user;
                             header("Location:../");
                             exit;
                         } else {
                             $error_messages[] = "Mot de passe erroné";
-                            $this->render('user/signin.php',["errors" => $error_messages]);
+                            $this->render('user/signin.php',["errors" => $error_messages,"title"=>$title]);
                             //include TEMPLATES . DIRECTORY_SEPARATOR . "signin.php";
                         }
                     } else {
                         $error_messages[] = "Email erroné";
-                        $this->render('user/signin.php',["errors" => $error_messages]);
+                        $this->render('user/signin.php',["errors" => $error_messages,"title"=>$title]);
                         //include TEMPLATES . DIRECTORY_SEPARATOR . "signin.php";
                     }
                 } catch (PDOException $e) {
                     echo $e->getMessage();
                 }
             } else {
-                $this->render('user/signin.php',[]);
+                $this->render('user/signin.php',["title"=>$title]);
                 //include TEMPLATES . DIRECTORY_SEPARATOR . "signin.php";
             }
         }
@@ -226,13 +229,14 @@ class UserController extends AbstractController{
     }
 
     public function userShow($user_id){
+        $title = "bleep";
         if ($user_id !== false) {
             try {
                 $userDao = new UserRepository();
                 $user = $userDao->getUserById($user_id);
                 
                 if (!is_null($user)) {
-                    $this->render('user/show_user.php',["user" => $user]);
+                    $this->render('user/show_user.php',["user" => $user,"title"=>$title]);
                 } else {
                     header("Location:../");
                     exit;

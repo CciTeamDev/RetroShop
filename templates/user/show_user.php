@@ -1,5 +1,5 @@
 <?php
-$title = (unserialize($_SESSION["user"])->getId_user() === $user->getId_user()) ? "Mon profil" : sprintf("Le profil de %s", $user->getPseudo());
+//$title = (unserialize($_SESSION["user"])->getId_user() === $user->getId_user()) ? "Mon profil" : sprintf("Le profil de %s", $user->getPseudo());
 
 ?>
 <div><span>Id_user : </span><span><?= $user->getId_user() ?? 'N/A'; ?></span></div>

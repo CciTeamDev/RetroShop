@@ -14,7 +14,7 @@ if (!empty($errors)) : ?>
 
 <form action="" method="post">
     <label for="email">Email : </label><input type="text" name="email" id="email">
-    <label for="pwd">Mot de passe : </label><input type="password" name="pwd" id="pwd">
+    <label for="mot_passe">Mot de passe : </label><input type="password" name="mot_passe" id="mot_passe">
     <input type="submit" value="Envoyer">
 </form>
 
