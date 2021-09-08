@@ -1,16 +1,19 @@
 body{
     font-family: 'Roboto', sans-serif;
-    
+    background-color: #F2EDD5 !important;
+    color: #51422c !important;
     // PARTIE HEARDER
     header{
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-around;
+        // background-color: #0a73;
 
         h1{
             font-family: 'Abril Fatface', cursive;
-            font-size: 3em;
+            font-size: 2.5em;
+            // background: linear-gradient(#d93829, #d9981e, #0a7360, #51422c, #f2edd5) !important;
         }
          nav{
              ul{
@@ -59,13 +62,14 @@ body{
                     font-size: 1.5em;
                     cursor: pointer;
                     margin: 0;
+                    padding: 0.19em;
                 }
              }
          }
          .panier{
              button{
                 border: none ;
-                background-color: white;
+                background-color: #F2EDD5 !important;
                 padding: 0.5em; 
              }
              .fas{
@@ -76,7 +80,7 @@ body{
          .user{
              button{
                 border: none ;
-                background-color: white;
+                background-color: #F2EDD5 !important;
                 padding: 0.5em;
 
                 .fas{
@@ -88,6 +92,11 @@ body{
     }
     
     .main{
+        .intro{
+            display: flex;
+            
+        }
+        
         // Fiche Produit
         padding: 5em;
         .preschoix{
@@ -108,6 +117,7 @@ body{
                             margin: 2em 0.5em;
                             cursor: pointer;
                             padding: 0.5em;
+                            background-color: #F2EDD5 !important;
                         }
                    }
                }               
@@ -150,8 +160,48 @@ body{
             }
         }
         // Suggestion
+        h1{
+            padding: 1em;
+        }
+        p{
+            margin: 0 5em;
+            padding: 4em 5em;
+        }
         .suggestion{
             text-align: center;
+            padding: 2em;
+            h2{
+                padding: 2em;
+            }
+            .newProduit{
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-evenly;
+                img{
+                    width: 100px;
+                    display: block;
+                    margin: 0 auto;
+                }
+                button{
+                    border: none;
+                    background-color: #F2EDD5 !important;
+                    margin: 1em 2em;
+                    a{
+                        text-decoration: none;
+                    }
+                }
+            }
+           
+        }
+
+        .promo{
+            text-align: center;
+            padding: 2em;
+
+            h2{
+                padding: 2em;
+            }
         }
     }
 
@@ -165,7 +215,7 @@ body{
             h2{
                 font-family: 'Abril Fatface', cursive;
             }
-            h4{
+            p{
                 .fas{
                     color: red;
                 }
