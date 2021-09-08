@@ -119,6 +119,26 @@ body{
             margin: 2em;
         }
 
+        .voteClients{
+            text-align: center;
+            padding: 2em;
+
+            form{
+                display: flex;
+                flex-direction: column;
+               justify-content: center;
+                margin: 0 35em;
+
+                label{
+                    padding: 1em;
+                }
+                button{
+                    margin: 1em 10em;
+                    padding: 1em;
+                }
+            }
+        }
+
         .avisclients{
             margin: 4em;
             table{
