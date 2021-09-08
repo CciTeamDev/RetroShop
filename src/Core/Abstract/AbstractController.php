@@ -17,7 +17,7 @@ abstract class AbstractController{
         if(!$title){
             $title = 'Titre par défault';
         }
-        include self::BASEPATH.'/hfn/header.php';
+        include self::BASEPATH.'/header.html';
         
         $absolutPath = self::BASEPATH.$path;
         include $absolutPath;
