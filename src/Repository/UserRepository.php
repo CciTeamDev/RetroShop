@@ -58,12 +58,11 @@ private PDO $pdo;
             "SELECT id_user,email,mot_passe FROM user WHERE email =:email"
         );
         $req->execute([":email"=>$email]);
-        $result = $req->fetch(PDO::FETCH_ASSOC);
+        $req->setFetchMode(PDO::FETCH_CLASS,User::class);
+        $result = $req->fetch();
+        
         if(!empty($result)) {
-            return (new User())
-                ->setId_user($result["id_user"])
-                ->setEmail($result["email"])
-                ->setmot_passe($result["mot_passe"]);
+            return $result;
         } else {
             return null;
         }

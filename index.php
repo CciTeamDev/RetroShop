@@ -9,6 +9,7 @@ require 'vendor/autoload.php';
 
 use App\Controller\ArticleController;
 use App\Controller\CategorieController;
+use App\Controller\CommandeController;
 use App\Controller\UserController;
 use App\Core\Request;
 use App\Core\Router;
@@ -55,11 +56,36 @@ $router->add("search/:word",[$artController, 'search'],$request->getMethod());
 
 //on ajoute les routes dispo dans l'appli
 
-$router->add("signup",function(){(new UserRepository()); (new UserController())->userSignup();},$request->getMethod());
-$router->add("signin",function(){(new UserRepository());(new UserController())->userSignin();},$request->getMethod());
-$router->add("signout",function(){(new UserRepository()); (new UserController())->userSignout();},$request->getMethod());
-$router->add("user/show",function(){(new UserRepository()); (new UserController())->userShow(($_SESSION["user"])->getId_user());},$request->getMethod());
-$router->add("user/update",function(){(new UserRepository()); (new UserController())->userUpdate(($_SESSION["user"])->getId_user());},$request->getMethod());
+$router->add("signup",function(){
+    (new UserRepository());
+    (new UserController())->userSignup();
+    (new CommandeController())->panierCheck();
+    },$request->getMethod());
+
+$router->add("signin",function(){
+    (new UserRepository());
+    (new UserController())->userSignin();
+    (new CommandeController())->panierCheck();
+    },$request->getMethod());
+
+$router->add("signout",function(){
+    (new UserRepository());
+    (new UserController())->userSignout();
+    (new CommandeController())->panierCheck();
+    },$request->getMethod());
+
+$router->add("user/show",function(){
+    (new UserRepository());
+    (new UserController())->userShow(($_SESSION["user"])->getId_user());
+    (new CommandeController())->panierCheck();
+    },$request->getMethod());
+
+$router->add("user/update",function(){
+    (new UserRepository());
+    (new UserController())->userUpdate(($_SESSION["user"])->getId_user());
+    (new CommandeController())->panierCheck();
+    },$request->getMethod());
+    
 //on lance notre application
 try {
     $router->run($request);
