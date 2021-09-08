@@ -12,6 +12,7 @@ class Route{
     public function __construct($path,$callable){
         $this->path = $path;
         $this->callable = $callable;
+        
     }
 
     public function match(string $url):bool
@@ -31,7 +32,7 @@ class Route{
             return false;
         }
         //Retire le premier match du tableau
-        dump($matches);
+
         array_shift($matches);
         //on passe les param dans la propriété.
         $this->matches = $matches;
