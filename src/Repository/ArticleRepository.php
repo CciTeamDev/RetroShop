@@ -20,7 +20,7 @@ class ArticleRepository
 
     public function getArticles()
     {
-        $req = $this->pdo->query("SELECT nom_produit FROM produit order by date_en_ligne desc limit 5");
+        $req = $this->pdo->query("SELECT * FROM produit order by date_en_ligne desc limit 5");
         return $req->fetchAll();
     }
 
