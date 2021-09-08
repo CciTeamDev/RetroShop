@@ -17,7 +17,7 @@ $categController = new CategorieController();
 //on ajoute les routes dispo dans l'appli
 
 
-$router->add("",function(){echo 'Bro wtf';},$request->getMethod());
+// $router->add("",function(){echo 'Bro wtf';},$request->getMethod());
 $router->add("articles",[$artController, 'index'],$request->getMethod());
 
 $router->add("ficheproduit/:id", [$artController, "show"], $request->getMethod());
