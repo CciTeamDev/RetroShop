@@ -10,8 +10,10 @@ abstract class AbstractController{
     public function render(string $path,
     array $datas
     ){
-        ob_start();//début de la mémoire tampon;
+        ob_start();//début de la mémoire tampon
+        
         extract($datas);
+
         if(!$title){
             $title = 'Titre par défault';
         }
@@ -19,7 +21,7 @@ abstract class AbstractController{
         
         $absolutPath = self::BASEPATH.$path;
         include $absolutPath;
-        //include self::BASEPATH.'footer.html';
+        include self::BASEPATH.'footer.html';
         echo ob_get_clean();//vidange de la mémoire tampon et fermeture;
         //dump(ob_get_clean());
     
