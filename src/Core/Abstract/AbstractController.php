@@ -10,8 +10,10 @@ abstract class AbstractController{
     public function render(string $path,
     array $datas
     ){
-        ob_start();//début de la mémoire tampon;
+        ob_start();//début de la mémoire tampon
+        
         extract($datas);
+
         if(!$title){
             $title = 'Titre par défault';
         }
