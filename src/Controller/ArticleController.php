@@ -23,7 +23,6 @@ class ArticleController extends AbstractController {
         $repo = new ArticleRepository();
         
         $articles = $repo->getOneArticle($params[0]);
-        // dd($articles);
         $this->render("articles/FicheProduit.php", [
             'articles' => $articles
         ]);
