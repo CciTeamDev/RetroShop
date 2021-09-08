@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 07 sep. 2021 à 16:43
--- Version du serveur : 10.4.21-MariaDB
--- Version de PHP : 8.0.10
+-- Généré le : mer. 08 sep. 2021 à 13:47
+-- Version du serveur :  10.4.17-MariaDB
+-- Version de PHP : 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -80,11 +80,10 @@ CREATE TABLE `note_produit` (
 --
 
 CREATE TABLE `panier` (
-  `id` int(11) NOT NULL,
   `id_panier` int(11) NOT NULL,
   `id_produit` int(11) NOT NULL,
   `quantite` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -98,24 +97,25 @@ CREATE TABLE `produit` (
   `nom_produit` varchar(100) NOT NULL,
   `descrip` text NOT NULL,
   `prix_unitaire` float NOT NULL,
-  `date_en_ligne` datetime NOT NULL
+  `date_en_ligne` datetime NOT NULL,
+  `pic` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `produit`
 --
 
-INSERT INTO `produit` (`id_produit`, `ref`, `nom_produit`, `descrip`, `prix_unitaire`, `date_en_ligne`) VALUES
-(1, '125874', 'Split Peas - Green, Dry', 'viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper', 9.07, '2021-09-05 09:55:07'),
-(2, '3164345', 'Vodka - Smirnoff', 'nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a', 8.19, '2021-07-13 10:04:17'),
-(3, '3464642', 'Bread - French Baquette', 'convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim', 8.68, '2021-09-03 09:55:17'),
-(4, '6464911', 'Cookie Double Choco', 'ipsum aliquam non mauris morbi non lectus aliquam sit amet diam', 1.12, '2020-12-09 10:04:04'),
-(5, '3464421', 'Pork - Belly Fresh', 'venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam', 6.17, '2020-11-11 10:03:52'),
-(6, '9764311', 'Beans - Black Bean, Dry', 'ac tellus semper interdum mauris ullamcorper purus sit amet nulla quisque arcu', 2.91, '2021-09-05 09:55:27'),
-(7, '6491212', 'Food Colouring - Green', 'cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing', 7.15, '2021-02-16 10:03:42'),
-(8, '9731412', 'Lettuce - Arugula', 'pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis', 5.99, '2021-06-08 10:03:31'),
-(9, '9734522', 'Oil - Coconut', 'amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan tellus', 2.89, '2021-07-04 10:03:20'),
-(10, '7649455', 'Prunes - Pitted', 'mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis', 9.21, '2021-09-09 10:03:11');
+INSERT INTO `produit` (`id_produit`, `ref`, `nom_produit`, `descrip`, `prix_unitaire`, `date_en_ligne`, `pic`) VALUES
+(1, '125874', 'Split Peas - Green, Dry', 'viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper', 9.07, '2021-09-05 09:55:07', 'https://i.ibb.co/JQX6HYP/Capture-d-cran-9.png'),
+(2, '3164345', 'Vodka - Smirnoff', 'nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a', 8.19, '2021-07-13 10:04:17', ''),
+(3, '3464642', 'Bread - French Baquette', 'convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim', 8.68, '2021-09-03 09:55:17', ''),
+(4, '6464911', 'Cookie Double Choco', 'ipsum aliquam non mauris morbi non lectus aliquam sit amet diam', 1.12, '2020-12-09 10:04:04', ''),
+(5, '3464421', 'Pork - Belly Fresh', 'venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam', 6.17, '2020-11-11 10:03:52', ''),
+(6, '9764311', 'Beans - Black Bean, Dry', 'ac tellus semper interdum mauris ullamcorper purus sit amet nulla quisque arcu', 2.91, '2021-09-05 09:55:27', ''),
+(7, '6491212', 'Food Colouring - Green', 'cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing', 7.15, '2021-02-16 10:03:42', ''),
+(8, '9731412', 'Lettuce - Arugula', 'pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis', 5.99, '2021-06-08 10:03:31', ''),
+(9, '9734522', 'Oil - Coconut', 'amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan tellus', 2.89, '2021-07-04 10:03:20', ''),
+(10, '7649455', 'Prunes - Pitted', 'mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis', 9.21, '2021-09-09 10:03:11', '');
 
 -- --------------------------------------------------------
 
@@ -212,7 +212,7 @@ ALTER TABLE `note_produit`
 -- Index pour la table `panier`
 --
 ALTER TABLE `panier`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_panier`),
   ADD KEY `id_panier` (`id_panier`,`id_produit`),
   ADD KEY `id_produit` (`id_produit`);
 
@@ -257,7 +257,7 @@ ALTER TABLE `commande`
 -- AUTO_INCREMENT pour la table `panier`
 --
 ALTER TABLE `panier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_panier` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `produit`
