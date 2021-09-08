@@ -29,4 +29,15 @@ class ArticleController extends AbstractController {
         
     }
      
+    public function search($productSearched)
+    {
+        $repo = new ArticleRepository();
+        
+        $articles = $repo->searchArticle($productSearched[0]);
+        // dd($articles);
+        $this->render("articles/recherche.php", [
+            'articles' => $articles
+        ]);
+        
+    }
 }

@@ -42,4 +42,10 @@ class ArticleRepository
             return "Le produit n'existe pas !";
         }
     }
+
+    public function searchArticle($productSearched)
+    {
+        $req = $this->pdo->query("SELECT * FROM produit WHERE nom_produit LIKE '%$productSearched%' ");
+        return $req->fetchAll();
+    }
 }
