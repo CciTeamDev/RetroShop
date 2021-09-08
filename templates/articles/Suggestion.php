@@ -4,6 +4,8 @@
         <?php foreach($articles as $article) : ?>
             <div>
                 <h2><?=$article["nom_produit"]?></h2>
+
+                <img src="<?=$article["pic"]?>" alt="" srcset="">
                 <button>En Savoir Plus</button>
                 <button>Acheter</button>
             </div>
