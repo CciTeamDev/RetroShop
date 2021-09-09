@@ -12,9 +12,17 @@ use App\Repository\PaginationRepository;
 class ArticleController extends AbstractController {
 
     public function index ($params) {
-        // Récupérer les objets et les stockent dans une variable sous forme de tableau 
         $repo = new PaginationRepository();
-        $articles = $repo->paginate(Produit::class, $params[0]);
+        if (array_key_exists('1', $params)){
+            $articles = $repo->paginate(Produit::class, $params[1],$params[0]);
+        }
+        else {
+        $articles = $repo->paginate(Produit::class, $params[0],4);
+        dump($articles);
+        // Récupérer les objets et les stockent dans une variable sous forme de tableau 
+    }
+      
+        
         $this->render("articles/Suggestion.php", [
             'articles' => $articles
         ]);

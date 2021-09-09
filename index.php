@@ -13,7 +13,7 @@ $request = new Request();
 //initialisation de notre router
 $router = new Router($request);
 $artController = new ArticleController();
-$categController = new CategorieController();
+//$categController = new CategorieController();
 //on ajoute les routes dispo dans l'appli
 
 
@@ -23,7 +23,7 @@ $router->add("articles/:page",[$artController, 'index'],$request->getMethod());
 
 $router->add("ficheproduit/:id", [$artController, "show"], $request->getMethod());
 
-$router->add("categorie/:id",[$categController, 'index'],$request->getMethod());
+$router->add("categorie/:id/:page",[$artController, 'index'],$request->getMethod());
 
 $router->add("search/:word",[$artController, 'search'],$request->getMethod());
 

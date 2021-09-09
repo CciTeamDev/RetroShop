@@ -18,17 +18,24 @@ class PaginationRepository
     }
 
     // a faire : automatiser catégorie ici
+
     // fonction limit et offset
-    public function paginate(string $class, ?int $multiplicateur, int $limit=3, int $offset=0) 
+    public function paginate(string $class, ?int $multiplicateur, ?int $categorie,int $limit=2, int $offset=0, ) 
     {
         if (is_int($multiplicateur)  && $multiplicateur !==0){
             $offset = $limit * $multiplicateur;
             $offset -= $limit;
         }
-
+        
         $refleClass = new ReflectionClass($class);
+        
         $className = $refleClass->getShortName();
-        $req = $this->pdo->query("SELECT * FROM $className LIMIT $limit OFFSET $offset");
+
+        $req = $this->pdo->query("SELECT * FROM $className INNER JOIN produit_categorie 
+        ON produit.id_produit =	produit_categorie.id_produit
+        WHERE produit_categorie.id_categorie = $categorie LIMIT $limit OFFSET $offset");
+       
+        //$req = $this->pdo->query("SELECT * FROM $className LIMIT $limit OFFSET $offset");
         
         //pdo::fetch_class permet de préciser à PDO de nous créer des objets d'une classe précise par son namespace
         //  $req->execute([
@@ -38,9 +45,10 @@ class PaginationRepository
         // ]);
         
         $req->setFetchMode(PDO::FETCH_CLASS, $class);
+        
        
-       
-        return $req->fetchAll();      
+        return $req->fetchAll();  
+         
     }
     
   
