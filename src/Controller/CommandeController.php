@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\Abstract\AbstractController;
 use App\Repository\CommandeRepository;
+use App\Repository\PanierRepository;
 use App\Repository\UserRepository;
 
 class CommandeController extends AbstractController {
@@ -12,18 +13,31 @@ public function __construct()
     
 }
     
-    public function panierCheck(){
-        if(!isset($_SESSION["panier"]) && isset($_SESSION["user"])) {//si panier non set
+    public function commandeCheck(){
+        if(isset($_SESSION["user"])) {
             $cmd = new CommandeRepository();
             $usr = new UserRepository();
+            $state="panier";
             $user = $usr->getUserById(($_SESSION["user"])->getId_user());
-            $comm = $cmd->createCommande($user);
-            //créer une nouvelle commande;
-            dd($comm);
-            $_SESSION["panier"] = [];
+            $commId = $cmd->getCommandeById_userCheckState($user,$state);
+            //dd(gettype($commId));
+            if (!$commId){
+                $comm = $cmd->createCommande($user);
+            } else {
+                $panier = new PanierRepository();
+                //$crt = $panier->newPanier(4);
+                $carts = $panier->getPanierbyId_commande($commId);
+                
+                $qtetotal = 0;
+                //dump($carts["commande"]);
+                foreach ($carts  as $cart ) {
+                    //dump($cart);
+                    //dump($cart->getQuantite());
+                    $qtetotal += $cart->getQuantite();
+                }
+                //dump($qtetotal);
+            }
         } else {
-            //compter le nombre d'objets dans le panier - SUM QTE
-            dump($_SESSION);
             echo 'meep';
             
         }

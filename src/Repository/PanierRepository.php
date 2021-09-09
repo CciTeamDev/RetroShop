@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Core\Database\AccesseurDB;
 use App\Entity\Article;
+use App\Entity\Commande;
 use App\Entity\Panier;
 use PDO;
 
@@ -27,18 +28,24 @@ class PanierRepository {
         ]);
     }
 
-    public function getPanierbyId(int $id_panier) {
-        $req = $this->pdo->prepare("SELECT * FROM panier WHERE id_panier = :id_panier");
+    public function getPanierbyId_commande(Commande $commande) {
+        $req = $this->pdo->prepare("SELECT * FROM panier WHERE id_commande = :id_commande ORDER BY id ASC");
         $req->execute([
-            ":id_panier" => $id_panier
+            ":id_commande" => $commande->getId_commande()
         ]);
-        $req->setFetchMode(PDO::FETCH_CLASS,Panier::class);
-        $result = $req->fetch();
-        if(!empty($result)){
-            return $result;
-        } else {
-            return null;
+        //$req->setFetchMode(PDO::FETCH_CLASS,Panier::class);
+        
+        $result = $req->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($result as $key => $articlePanier){
+            $result[$key] = (new Panier())
+            ->setId_commande($articlePanier["id_commande"])
+            ->setId_produit($articlePanier["id_produit"])
+            ->setQuantite($articlePanier["quantite"]);
         }
+        //$result['commande'] = $commande;
+        return $result;
+        
     }
 
     public function updatePanier(Panier $panier){

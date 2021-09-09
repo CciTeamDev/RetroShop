@@ -59,33 +59,33 @@ $router->add("search/:word",[$artController, 'search'],$request->getMethod());
 $router->add("signup",function(){
     (new UserRepository());
     (new UserController())->userSignup();
-    (new CommandeController())->panierCheck();
+    (new CommandeController())->commandeCheck();
     },$request->getMethod());
 
 $router->add("signin",function(){
     (new UserRepository());
     (new UserController())->userSignin();
-    (new CommandeController())->panierCheck();
+    (new CommandeController())->commandeCheck();
     },$request->getMethod());
 
 $router->add("signout",function(){
     (new UserRepository());
     (new UserController())->userSignout();
-    (new CommandeController())->panierCheck();
+    (new CommandeController())->commandeCheck();
     },$request->getMethod());
 
 $router->add("user/show",function(){
     (new UserRepository());
     (new UserController())->userShow(($_SESSION["user"])->getId_user());
-    (new CommandeController())->panierCheck();
+    (new CommandeController())->commandeCheck();
     },$request->getMethod());
 
 $router->add("user/update",function(){
     (new UserRepository());
     (new UserController())->userUpdate(($_SESSION["user"])->getId_user());
-    (new CommandeController())->panierCheck();
+    (new CommandeController())->commandeCheck();
     },$request->getMethod());
-    
+
 //on lance notre application
 try {
     $router->run($request);

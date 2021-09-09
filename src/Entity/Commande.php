@@ -6,9 +6,8 @@ use DateTime;
 
 class Commande {
     private int $id_commande;
-    private ?DateTime $date_commande;
+    private ?string $date_commande;
     private ?int $id_user;
-    private int $id_panier;
     private string $etat;
     private ?int $total;
     private ?string $id_stripe;
