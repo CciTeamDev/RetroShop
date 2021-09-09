@@ -1,5 +1,5 @@
 <?php
-$title = (unserialize($_SESSION["user"])->getId_user() === $user->getId_user()) ? "Mon profil" : sprintf("Le profil de %s", $user->getPseudo());
+//$title = (unserialize($_SESSION["user"])->getId_user() === $user->getId_user()) ? "Mon profil" : sprintf("Le profil de %s", $user->getPseudo());
 
 ?>
 <div><span>Id_user : </span><span><?= $user->getId_user() ?? 'N/A'; ?></span></div>
@@ -14,3 +14,4 @@ $title = (unserialize($_SESSION["user"])->getId_user() === $user->getId_user()) 
 <div><span>tel : </span><span><?= $user->gettel() ?></span></div>
 
 <a href="update">Modifier le profil</a>
+<a href="<?=HTTP?>commande/validation">Valider la commande</a>
