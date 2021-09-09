@@ -86,6 +86,11 @@ $router->add("user/update",function(){
     (new CommandeController())->commandeCheck();
     },$request->getMethod());
 
+$router->add("commande/validation",function(){
+    (new UserRepository());
+    (new CommandeController())->updateCommande();
+    },$request->getMethod());
+
 //on lance notre application
 try {
     $router->run($request);

@@ -14,3 +14,4 @@
 <div><span>tel : </span><span><?= $user->gettel() ?></span></div>
 
 <a href="update">Modifier le profil</a>
+<a href="<?=HTTP?>commande/validation">Valider la commande</a>

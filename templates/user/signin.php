@@ -1,5 +1,5 @@
 <?php
-$title = "Identifiez vous !";
+//$title = "Identifiez vous !";
 
 
 if (!empty($errors)) : ?>

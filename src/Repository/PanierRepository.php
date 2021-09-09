@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Core\Database\AccesseurDB;
-use App\Entity\Article;
+//use App\Entity\Article;
 use App\Entity\Commande;
 use App\Entity\Panier;
 use PDO;
@@ -49,11 +49,20 @@ class PanierRepository {
     }
 
     public function updatePanier(Panier $panier){
-        $article = new Article();
-        $req = $this->pdo->prepare("UPDATE panier SET id_produit = :id_produit, quantite = :quantite WHERE id_panier = :id_panier");
+        //$article = new Article();
+        $req = $this->pdo->prepare("UPDATE panier 
+        SET id_produit = :id_produit, quantite = :quantite 
+        WHERE ");
         $req->execute([
-            ":id_produit" => $panier->addItem($article),
-            ":quantite" => $panier->addQte($article)
+            //":id_produit" => $panier->addItem($article),
+            //":quantite" => $panier->addQte($article)
+        ]);
+    }
+
+    public function deletePanier(Panier $panier){
+        $req = $this->pdo->prepare("DELETE * FROM panier WHERE ...");
+        $req->execute([
+            ":id" => $panier->getId()
         ]);
     }
 
