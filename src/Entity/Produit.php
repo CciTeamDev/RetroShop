@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-class Article{
+class Produit{
     private int $id_produit; 
     private int $ref;
     private string $nom_produit;

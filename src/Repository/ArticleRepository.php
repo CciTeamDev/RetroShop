@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Core\Database\AcceseurDB;
-use App\Entity\Article;
+use App\Entity\Produit;
 use PDO;
 
 class ArticleRepository
@@ -19,7 +19,7 @@ class ArticleRepository
 
     public function getArticles()
     {
-        $req = $this->pdo->query("SELECT nom_produit FROM produit order by date_en_ligne desc limit 5");
+        $req = $this->pdo->query("SELECT * FROM produit order by date_en_ligne desc limit 5");
         return $req->fetchAll();
     }
 
@@ -31,7 +31,7 @@ class ArticleRepository
         $result = $req->fetch(PDO::FETCH_ASSOC);
 
         if(!empty($result)){
-            return (new Article())
+            return (new Produit())
             ->setId_produit($result["id_produit"])
             ->setRef($result["ref"])
             ->setNom_produit($result["nom_produit"])
