@@ -1,0 +1,192 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    
+    // PARTIE HEARDER
+    header{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;
+
+        h1{
+            font-family: 'Abril Fatface', cursive;
+            font-size: 3em;
+        }
+         nav{
+             ul{
+                display: flex;
+                flex-direction: row; 
+                li{
+                    list-style: none;
+                    a{
+                        text-decoration: none;
+                        margin: 2em;
+                        font-size: 1.4em;
+                    } 
+                    
+                    ul{
+                        display:none; 
+                    }
+                }
+
+                li:hover{
+                    ul{
+                        display:flex;
+                        flex-direction: column;
+                        position: absolute;
+                        margin-left: -2.7em;
+                    }
+                    
+                    li{
+                        padding: 0.5em;
+                    }
+                }
+             }
+            
+         }
+         .search{
+             form{
+                display: flex;
+                flex-direction: row;
+                align-items: flex-end;
+                margin: 0;
+
+                input{
+                    height: 2.2em;
+                }
+
+                button{
+                    font-size: 1.5em;
+                    cursor: pointer;
+                    margin: 0;
+                }
+             }
+         }
+         .panier{
+             button{
+                border: none ;
+                background-color: white;
+                padding: 0.5em; 
+             }
+             .fas{
+                 font-size: 2em;
+                 cursor: pointer;
+             }
+         }
+         .user{
+             button{
+                border: none ;
+                background-color: white;
+                padding: 0.5em;
+
+                .fas{
+                    font-size: 2em;
+                    cursor: pointer;
+                }
+             }
+         }
+    }
+    
+    .main{
+        // Fiche Produit
+        padding: 5em;
+        .preschoix{
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-around;
+
+            .choixuser{
+                .prix{
+                    font-size: 3em;
+                }
+               .quantite{
+                   form{
+                    padding: 2em 0 ;
+                   }
+                   .choix{
+                        button{
+                            margin: 2em 0.5em;
+                            cursor: pointer;
+                            padding: 0.5em;
+                        }
+                   }
+               }               
+            }
+        }
+
+        .description{
+            text-align: center;
+            margin: 2em;
+        }
+
+        .voteClients{
+            text-align: center;
+            padding: 2em;
+
+            form{
+                display: flex;
+                flex-direction: column;
+               justify-content: center;
+                margin: 0 35em;
+
+                label{
+                    padding: 1em;
+                }
+                button{
+                    margin: 1em 10em;
+                    padding: 1em;
+                }
+            }
+        }
+
+        .avisclients{
+            margin: 4em;
+            table{
+                tr{
+                    th{
+                       padding: 0 1.5em; 
+                    }
+                }
+            }
+        }
+        // Suggestion
+        .suggestion{
+            text-align: center;
+        }
+    }
+
+    footer{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;
+
+        .copy{
+            h2{
+                font-family: 'Abril Fatface', cursive;
+            }
+            h4{
+                .fas{
+                    color: red;
+                }
+            }
+        }
+
+        .reseauxs{
+            display: flex;
+            flex-direction: column;
+
+            a{
+                margin: 0.5em;
+                text-decoration: none;
+            }
+
+            .fab{
+                font-size: 1.5em;
+            }
+        }
+    }
+
+}
+
+

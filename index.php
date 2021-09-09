@@ -1,8 +1,10 @@
 <?php
 
-define("HTTP", ($_SERVER["SERVER_NAME"] == "localhost")
-   ? "http://localhost:8000/"
-   : "http://your_site_name.com/"
+define(
+    "HTTP",
+    ($_SERVER["SERVER_NAME"] == "localhost")
+        ? "http://localhost:8000/"
+        : "http://your_site_name.com/"
 );
 
 require 'vendor/autoload.php';
@@ -24,8 +26,9 @@ $session = new Session(
 
 ?>
 
-<a href="<?=HTTP?>"><button>Accueil</button></a>
+<a href="<?= HTTP ?>"><button>Accueil</button></a>
 <?php if (!isset($_SESSION["user"])) : ?>
+
 <a href="<?=HTTP?>articles"><button>Articles</button></a>
 <a href="<?=HTTP?>signup"><button>S'enregistrer</button></a>
 <a href="<?=HTTP?>signin"><button>Se connecter</button></a>
@@ -37,26 +40,35 @@ $session = new Session(
 
 
 <?php
-//dump($_SESSION);
-//initialise la request
-$request = new Request();
-//initialisation de notre router
-$router = new Router($request);
+
+  //initialise la request
+    $request = new Request();
+
+if ($request->getFilenameExtension() === "png" || $request->getFilenameExtension() === "jpg") {
+    header("Content-type: image/png");
+    readfile($request->getScriptFileName());
+} else if ($request->getFilenameExtension() === "css") {
+    header("Content-type: text/css");
+    readfile($request->getScriptFileName());
+} else {
 
 
-$artController = new ArticleController();
-$categController = new CategorieController();
-//on ajoute les routes dispo dans l'appli
+    //initialisation de notre router
+    $router = new Router($request);
+    $artController = new ArticleController();
+    $categController = new CategorieController();
+    //on ajoute les routes dispo dans l'appli
 
-$router->add("",function(){echo 'Bro wtf';},$request->getMethod());
-$router->add("articles",[$artController, 'index'],$request->getMethod());
-$router->add("ficheproduit/:id", [$artController, "show"], $request->getMethod());
-$router->add("categorie/:id",[$categController, 'index'],$request->getMethod());
-$router->add("search/:word",[$artController, 'search'],$request->getMethod());
 
-//on ajoute les routes dispo dans l'appli
+    $router->add("articles", [$artController, 'index'], $request->getMethod());
+    $router->add("ficheproduit/:id", [$artController, "show"], $request->getMethod());
+    $router->add("categorie/:id", [$categController, 'index'], $request->getMethod());
+    $router->add("search", [$artController, 'search'], $request->getMethod());
 
-$router->add("signup",function(){
+
+    //on ajoute les routes dispo dans l'appli
+
+    $router->add("signup",function(){
     (new UserRepository());
     (new UserController())->userSignup();
     (new CommandeController())->commandeCheck();
