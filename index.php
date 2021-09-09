@@ -60,7 +60,7 @@ if ($request->getFilenameExtension() === "png" || $request->getFilenameExtension
     //on ajoute les routes dispo dans l'appli
 
 
-    $router->add("articles", [$artController, 'index'], $request->getMethod());
+    $router->add("", [$artController, 'index'], $request->getMethod());
     $router->add("ficheproduit/:id", [$artController, "show"], $request->getMethod());
     $router->add("categorie/:id", [$categController, 'index'], $request->getMethod());
     $router->add("search", [$artController, 'search'], $request->getMethod());
@@ -102,7 +102,7 @@ $router->add("commande/validation",function(){
     (new UserRepository());
     (new CommandeController())->updateCommande();
     },$request->getMethod());
-
+}
 //on lance notre application
 try {
     $router->run($request);
@@ -111,4 +111,3 @@ try {
 }
 
 
-?>
