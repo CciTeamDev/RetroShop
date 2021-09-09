@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 08 sep. 2021 à 13:47
+-- Généré le : jeu. 09 sep. 2021 à 12:20
 -- Version du serveur :  10.4.17-MariaDB
 -- Version de PHP : 8.0.2
 
@@ -54,11 +54,20 @@ CREATE TABLE `commande` (
   `id_commande` int(11) NOT NULL,
   `date_commande` datetime NOT NULL,
   `id_user` int(11) NOT NULL,
-  `id_panier` int(11) NOT NULL,
   `etat` varchar(250) NOT NULL,
   `total` float NOT NULL,
   `id_stripe` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `commande`
+--
+
+INSERT INTO `commande` (`id_commande`, `date_commande`, `id_user`, `etat`, `total`, `id_stripe`) VALUES
+(2, '0000-00-00 00:00:00', 11, 'complétée', 0, ''),
+(3, '0000-00-00 00:00:00', 11, 'Complétée', 0, ''),
+(4, '0000-00-00 00:00:00', 11, 'validée', 15000, ''),
+(5, '0000-00-00 00:00:00', 11, 'panier', 0, '');
 
 -- --------------------------------------------------------
 
@@ -80,10 +89,26 @@ CREATE TABLE `note_produit` (
 --
 
 CREATE TABLE `panier` (
-  `id_panier` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_commande` int(11) NOT NULL,
   `id_produit` int(11) NOT NULL,
-  `quantite` int(11) NOT NULL
+  `quantite` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `panier`
+--
+
+INSERT INTO `panier` (`id`, `id_commande`, `id_produit`, `quantite`) VALUES
+(2, 2, 5, '5'),
+(5, 2, 5, '5'),
+(6, 2, 5, '5'),
+(7, 2, 5, '5'),
+(8, 4, 5, '5'),
+(9, 4, 5, '5'),
+(10, 4, 5, '5'),
+(11, 4, 5, '5'),
+(12, 4, 5, '5');
 
 -- --------------------------------------------------------
 
@@ -161,7 +186,7 @@ CREATE TABLE `user` (
   `adresse` text NOT NULL,
   `cp` varchar(5) NOT NULL,
   `ville` varchar(60) NOT NULL,
-  `tel` varchar(10) NOT NULL,
+  `tel` int(10) NOT NULL,
   `date_creation` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -170,16 +195,17 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nom`, `prenom`, `genre`, `date_naissance`, `email`, `mot_passe`, `adresse`, `cp`, `ville`, `tel`, `date_creation`) VALUES
-(1, 'Godber', 'Winn', 'M', '2021-01-08', 'wgodber0@live.com', '95NZlvqWcXWY', '200 Bartillon Street', '15978', 'Nedryhayliv', '921 591 78', '2021-06-09 00:00:00'),
-(2, 'Diss', 'Rogers', 'M', '2021-02-21', 'rdiss1@toplist.cz', 'jVUwzo', '57 Washington Alley', '74226', 'Aki', '121 803 96', '2020-10-28 00:00:00'),
-(3, 'Gebhard', 'Pasquale', 'M', '2021-01-17', 'pgebhard2@psu.edu', 'Zr47nFu0f', '3518 Colorado Center', '35987', 'Gorē', '818 620 56', '2021-06-28 00:00:00'),
-(4, 'Ivanyutin', 'Daveta', 'F', '2020-07-18', 'divanyutin3@examiner.com', 'xyRBXpRA', '47825 Spenser Center', '69223', 'Spassk-Dal’niy', '437 454 54', '2020-09-27 00:00:00'),
-(5, 'Stroton', 'Christabel', 'F', '2020-07-17', 'cstroton4@booking.com', 'fY4LygzEVyUp', '0 Tennessee Junction', '02154', 'Gazli', '519 919 07', '2020-10-08 00:00:00'),
-(6, 'Elwell', 'Althea', 'F', '2021-08-31', 'aelwell5@networkadvertising.org', 'KwFeBq2St', '0212 Texas Place', '36495', 'Kadengan', '814 403 48', '2020-10-26 00:00:00'),
-(7, 'Sturt', 'Boony', 'M', '2021-03-23', 'bsturt6@blogtalkradio.com', 'nV2yV4uoFUI', '40160 Holmberg Alley', '26751', 'Shangxing', '934 931 80', '2020-11-11 00:00:00'),
-(8, 'Worge', 'Olin', 'M', '2020-07-25', 'oworge7@indiatimes.com', 'zUpQv7Zm', '9 Erie Court', '37950', 'Jinshanpu', '789 174 98', '2021-06-29 00:00:00'),
-(9, 'Ungerecht', 'Abbey', 'F', '2021-01-09', 'aungerecht8@cdc.gov', 'APck67P', '22 Daystar Crossing', '03467', 'Yanggu', '294 109 02', '2021-06-30 00:00:00'),
-(10, 'Ruger', 'Jessee', 'M', '2021-08-11', 'jruger9@biblegateway.com', 'xzwsDuL', '1816 Northfield Center', '78135', 'Futian', '423 810 22', '2021-08-29 00:00:00');
+(1, 'Godber', 'Winn', 'M', '2021-01-08', 'wgodber0@live.com', '95NZlvqWcXWY', '200 Bartillon Street', '15978', 'Nedryhayliv', 921, '2021-06-09 00:00:00'),
+(2, 'Diss', 'Rogers', 'M', '2021-02-21', 'rdiss1@toplist.cz', 'jVUwzo', '57 Washington Alley', '74226', 'Aki', 121, '2020-10-28 00:00:00'),
+(3, 'Gebhard', 'Pasquale', 'M', '2021-01-17', 'pgebhard2@psu.edu', 'Zr47nFu0f', '3518 Colorado Center', '35987', 'Gorē', 818, '2021-06-28 00:00:00'),
+(4, 'Ivanyutin', 'Daveta', 'F', '2020-07-18', 'divanyutin3@examiner.com', 'xyRBXpRA', '47825 Spenser Center', '69223', 'Spassk-Dal’niy', 437, '2020-09-27 00:00:00'),
+(5, 'Stroton', 'Christabel', 'F', '2020-07-17', 'cstroton4@booking.com', 'fY4LygzEVyUp', '0 Tennessee Junction', '02154', 'Gazli', 519, '2020-10-08 00:00:00'),
+(6, 'Elwell', 'Althea', 'F', '2021-08-31', 'aelwell5@networkadvertising.org', 'KwFeBq2St', '0212 Texas Place', '36495', 'Kadengan', 814, '2020-10-26 00:00:00'),
+(7, 'Sturt', 'Boony', 'M', '2021-03-23', 'bsturt6@blogtalkradio.com', 'nV2yV4uoFUI', '40160 Holmberg Alley', '26751', 'Shangxing', 934, '2020-11-11 00:00:00'),
+(8, 'Worge', 'Olin', 'M', '2020-07-25', 'oworge7@indiatimes.com', 'zUpQv7Zm', '9 Erie Court', '37950', 'Jinshanpu', 789, '2021-06-29 00:00:00'),
+(9, 'Ungerecht', 'Abbey', 'F', '2021-01-09', 'aungerecht8@cdc.gov', 'APck67P', '22 Daystar Crossing', '03467', 'Yanggu', 294, '2021-06-30 00:00:00'),
+(10, 'Ruger', 'Jessee', 'M', '2021-08-11', 'jruger9@biblegateway.com', 'xzwsDuL', '1816 Northfield Center', '78135', 'Futian', 423, '2021-08-29 00:00:00'),
+(11, 'd', 'd', 'd', '2021-09-23', 'd@d.fr', '$2y$10$UhlSHPmhzfOdOr6iX6cPo.vIt6x1daoECdJYyNPGdRYfEJWTMVqge', 'dd', '11', 'dd', 11, '0000-00-00 00:00:00');
 
 --
 -- Index pour les tables déchargées
@@ -197,9 +223,8 @@ ALTER TABLE `categorie`
 --
 ALTER TABLE `commande`
   ADD PRIMARY KEY (`id_commande`),
-  ADD KEY `id_commande` (`id_commande`,`id_user`,`id_panier`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_panier` (`id_panier`);
+  ADD KEY `id_commande` (`id_commande`,`id_user`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Index pour la table `note_produit`
@@ -212,9 +237,7 @@ ALTER TABLE `note_produit`
 -- Index pour la table `panier`
 --
 ALTER TABLE `panier`
-  ADD PRIMARY KEY (`id_panier`),
-  ADD KEY `id_panier` (`id_panier`,`id_produit`),
-  ADD KEY `id_produit` (`id_produit`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `produit`
@@ -251,13 +274,13 @@ ALTER TABLE `categorie`
 -- AUTO_INCREMENT pour la table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `id_commande` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_commande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `panier`
 --
 ALTER TABLE `panier`
-  MODIFY `id_panier` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `produit`
@@ -269,7 +292,7 @@ ALTER TABLE `produit`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Contraintes pour les tables déchargées
@@ -279,8 +302,7 @@ ALTER TABLE `user`
 -- Contraintes pour la table `commande`
 --
 ALTER TABLE `commande`
-  ADD CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `commande_ibfk_2` FOREIGN KEY (`id_panier`) REFERENCES `panier` (`id_panier`);
+  ADD CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Contraintes pour la table `note_produit`
@@ -288,12 +310,6 @@ ALTER TABLE `commande`
 ALTER TABLE `note_produit`
   ADD CONSTRAINT `note_produit_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
   ADD CONSTRAINT `note_produit_ibfk_2` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`);
-
---
--- Contraintes pour la table `panier`
---
-ALTER TABLE `panier`
-  ADD CONSTRAINT `panier_ibfk_1` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`);
 
 --
 -- Contraintes pour la table `produit_categorie`
