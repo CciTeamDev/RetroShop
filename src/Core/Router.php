@@ -5,6 +5,7 @@ use App\Exception\RouterException;
 use App\Core\Route;
 use App\Core\Request;
 
+// fait office de "liens" dans la barre d'adresse
 class Router
 {
     private string $uri; //Contient les infos du $_GET pour le router
