@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 
-class Article{
+class Produit{
     private int $id_produit; 
     private int $ref;
     private string $nom_produit;
     private string $descrip;
+<<<<<<< HEAD:src/Entity/Article.php
+=======
+    private int $id_categorie;
+>>>>>>> 02267c03088e43ab6f5fc97ee02c8cbca235427d:src/Entity/Produit.php
     private float $prix_unitaire;
     private  $date_en_ligne; //DateTime erreur
 
@@ -138,6 +142,30 @@ class Article{
     public function setDate_en_ligne($date_en_ligne)
     {
         $this->date_en_ligne = $date_en_ligne;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id_categorie
+     *
+     * @return int
+     */
+    public function getIdCategorie(): int
+    {
+        return $this->id_categorie;
+    }
+
+    /**
+     * Set the value of id_categorie
+     *
+     * @param int $id_categorie
+     *
+     * @return self
+     */
+    public function setIdCategorie(int $id_categorie): self
+    {
+        $this->id_categorie = $id_categorie;
 
         return $this;
     }
