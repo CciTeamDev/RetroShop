@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\Abstract\AbstractController;
+use App\Core\Request;
 use App\Repository\UserRepository;
 use App\Entity\User;
 use PDOException;
@@ -10,18 +11,19 @@ use PDOException;
 class UserController extends AbstractController{
     public function __construct(
         
-    ) {
-
-    }
+    ) {}
 
     public function userSignup(){
+        $title = "boop";
+        $request = new Request();
+
         if(isset($_SESSION["user"])){
             header("Location:../");
             exit;
         }
 
-        if (empty($_POST)) {
-            $this->render('user/signup.php',[]);
+        if ( $request->getMethod() !=="POST" || empty($_POST)) {
+            $this->render('user/signup.php',["title"=>$title]);
         } else {
             $args = [
                 "nom" => [
@@ -36,12 +38,22 @@ class UserController extends AbstractController{
                         "regexp" => "#^[\w\s-]+$#u"
                     ]
                 ],
-                "genre"=>[],
+                "genre"=>[
+                    "filter" => FILTER_VALIDATE_REGEXP,
+                    "options" => [
+                        "regexp" => "#^[\w\s-]+$#u"
+                    ]
+                ],
                 "date_naissance"=>[],
                 "email" => [
                     "filter" => FILTER_VALIDATE_EMAIL
                 ],
-                "mot_passe" => [],
+                "mot_passe" => [
+                    "filter" => FILTER_VALIDATE_REGEXP,
+                    "options" => [
+                        "regexp" => "#^[\w\s-]+$#u"
+                    ]
+                ],
                 "date_creation"=>[],
                 "adresse" => [
                     "filter" => FILTER_VALIDATE_REGEXP,
@@ -71,30 +83,9 @@ class UserController extends AbstractController{
         
             $signup_post = filter_input_array(INPUT_POST, $args);
             
-        
-            if ($signup_post["nom"] === false) {
-                $error_messages[] = "Pseudo inexistant";
-            }
-            if ($signup_post["prenom"] === false) {
-                $error_messages[] = "Pseudo inexistant";
-            }
-            if ($signup_post["email"] === false) {
-                $error_messages[] = "Email inexistant";
-            }
-            if (empty(trim($signup_post["mot_passe"]))) {
-                $error_messages[] = "Mot de passe inexistant";
-            }
-            if ($signup_post["adresse"] === false) {
-                $error_messages[] = "adresse inexistant";
-            }
-            if ($signup_post["cp"] === false) {
-                $error_messages[] = "cp inexistant";
-            }
-            if ($signup_post["ville"] === false) {
-                $error_messages[] = "ville inexistant";
-            }
-            if ($signup_post["tel"] === false) {
-                $error_messages[] = "tel inexistant";
+            
+            foreach($signup_post as $key => $test) {
+               if($test === false || empty(trim($test))) {$error_messages[]= "$key invalide" ;};
             }
             
             if(empty($error_messages)) {
@@ -102,7 +93,9 @@ class UserController extends AbstractController{
                         
                         $userDao = new UserRepository();
                         $exist_user = $userDao->getUserByEmail($signup_post["email"]);
+                        //dd($exist_user);
 
+                        //Possible réduction ?
                         if (is_null($exist_user)) {
                             $signup_user = (new User())
                             ->setNom($signup_post["nom"])
@@ -124,6 +117,7 @@ class UserController extends AbstractController{
                       
                             $this->render('user/signup.php',[
                                 "errors" => $error_messages
+                                ,"title"=>$title
 
                             ]);
                         }
@@ -131,21 +125,27 @@ class UserController extends AbstractController{
                     echo $e->getMessage();
                 }
             } else {
-                $this->render('user/signup.php',["errors" => $error_messages]);
-            }
+                $this->render('user/signup.php',["errors" => $error_messages,"title"=>$title]);
+            } 
+            /*else if ($request->getMethod() === null ) {
+                $this->render('error/error_page.php',["title=>$title_error"])
+            }*/
         }
 
     }
 
     public function userSignin(){
+        $title = "bloop";
+        $request = new Request();
+
         if (isset($_SESSION["user"])) {
             header("Location:");
             exit;
         }
         
-        if (empty($_POST)) {
+        if ($request->getMethod() !=="POST" || empty($_POST)) {
             //include TEMPLATES . DIRECTORY_SEPARATOR . "signin.php";
-            $this->render('user/signin.php',[]);
+            $this->render('user/signin.php',["title"=>$title]);
         } else {
             $args = [
                 "email" => [
@@ -155,14 +155,10 @@ class UserController extends AbstractController{
             ];
         
             $signin_user = filter_input_array(INPUT_POST, $args);
-        
-            if ($signin_user["email"] === false) {
-                $error_messages[] = "Email inexistant";
-            }
-        
-            if (empty(trim($signin_user["mot_passe"]))) {
-                $error_messages[] = "Mot de passe inexistant";
-            }
+
+            foreach($signin_user as $key => $test) {
+                if($test === false || empty(trim($test))) {$error_messages[]= "$key invalide" ;};
+             }
         
             if (empty($error_messages)) {
                 $signin_user = (new User())
@@ -174,37 +170,30 @@ class UserController extends AbstractController{
                 try {
                     $userDao = new UserRepository();
                     $user = $userDao->getUserByEmail($signin_user->getEmail());
-                    //$var = "a";
                     if (!is_null($user)) {
-                        //dd($signin_user->getmot_passe(),password_hash($signin_user->getmot_passe(),PASSWORD_DEFAULT),$user->getmot_passe(),password_hash($var,PASSWORD_DEFAULT));
+                        
                         if (password_verify(
                             $signin_user->getmot_passe(),
                             $user->getmot_passe())) {
-                                
-
-                                //dd($user,$user->getId_user());
-                            $user = $userDao->getUserById($user->getId_user()); //erreur
+                            $user = $userDao->getUserById($user->getId_user());
                             
                             session_regenerate_id(true);
-                            $_SESSION["user"] = serialize($user);
+                            $_SESSION["user"] = $user;
                             header("Location:../");
                             exit;
                         } else {
                             $error_messages[] = "Mot de passe erroné";
-                            $this->render('user/signin.php',["errors" => $error_messages]);
-                            //include TEMPLATES . DIRECTORY_SEPARATOR . "signin.php";
+                            $this->render('user/signin.php',["errors" => $error_messages,"title"=>$title]);
                         }
                     } else {
                         $error_messages[] = "Email erroné";
-                        $this->render('user/signin.php',["errors" => $error_messages]);
-                        //include TEMPLATES . DIRECTORY_SEPARATOR . "signin.php";
+                        $this->render('user/signin.php',["errors" => $error_messages,"title"=>$title]);
                     }
                 } catch (PDOException $e) {
                     echo $e->getMessage();
                 }
             } else {
-                $this->render('user/signin.php',[]);
-                //include TEMPLATES . DIRECTORY_SEPARATOR . "signin.php";
+                $this->render('user/signin.php',["title"=>$title]);
             }
         }
     }
@@ -226,13 +215,14 @@ class UserController extends AbstractController{
     }
 
     public function userShow($user_id){
+        $title = "bleep";
         if ($user_id !== false) {
             try {
                 $userDao = new UserRepository();
                 $user = $userDao->getUserById($user_id);
                 
                 if (!is_null($user)) {
-                    $this->render('user/show_user.php',["user" => $user]);
+                    $this->render('user/show_user.php',["user" => $user,"title"=>$title]);
                 } else {
                     header("Location:../");
                     exit;
@@ -248,6 +238,8 @@ class UserController extends AbstractController{
 
     public function userUpdate($user_id){
         $title = "Editer un utilisateur";
+        $request = new Request();
+
         if ($user_id !== false) {
             try {
                 $userDao = new UserRepository();
@@ -257,7 +249,7 @@ class UserController extends AbstractController{
                 echo $e->getMessage();
             }
         
-            if (empty($_POST)) {
+            if ($request->getMethod() !=="POST" || empty($_POST)) {
                 if (!is_null($user)) {
                     $this->render('user/edit_user.php',["user" => $user,"title"=>$title]);
                 } else {
@@ -313,31 +305,9 @@ class UserController extends AbstractController{
         
                 $edit_post = filter_input_array(INPUT_POST, $args);
         
-                if ($edit_post["nom"] === false) {
-                    $error_messages[] = "Pseudo inexistant";
-                }
-                if ($edit_post["prenom"] === false) {
-                    $error_messages[] = "Pseudo inexistant";
-                }
-                if ($edit_post["email"] === false) {
-                    $error_messages[] = "Email inexistant";
-                }
-                if (empty(trim($edit_post["mot_passe"]))) {
-                    $error_messages[] = "Mot de passe inexistant";
-                }
-                if ($edit_post["adresse"] === false) {
-                    $error_messages[] = "adresse inexistant";
-                }
-                if ($edit_post["cp"] === false) {
-                    $error_messages[] = "cp inexistant";
-                }
-                if ($edit_post["ville"] === false) {
-                    $error_messages[] = "ville inexistant";
-                }
-                if ($edit_post["tel"] === false) {
-                    $error_messages[] = "tel inexistant";}
-        
-                
+                foreach($edit_post as $key => $test) {
+                    if($test === false || empty(trim($test))) {$error_messages[]= "$key invalide" ;};
+                 }
         
                 if (empty($error_messages)) {
         

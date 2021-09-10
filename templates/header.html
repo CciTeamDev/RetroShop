@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/index.css">
+    <link rel="stylesheet" href="/public/css/index.css">
     <script src="https://kit.fontawesome.com/00fca59a8b.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    
     <title>RetroShop</title>
 </head>
 <body>
@@ -20,14 +19,14 @@
 
         <nav>
             <ul>
-                <li><a href="">Catégories</a>
+                <li><a>Catégories</a>
                     <ul>
-                        <li><a href="">Jeux Rétro</a></li>
-                        <li><a href="">Jouets Rétro</a></li>
-                        <li><a href="">Librairie</a></li>
-                        <li><a href="">Films</a></li>
-                        <li><a href="">Musique</a></li>
-                        <li><a href="">Vêtements</a></li>
+                        <li><a href="/articles/1/1">Jeux Rétro</a></li>
+                        <li><a href="/articles/2/1">Jouets Rétro</a></li>
+                        <li><a href="/articles/3/1">Librairie</a></li>
+                        <li><a href="/articles/4/1">Films</a></li>
+                        <li><a href="/articles/5/1">Musique</a></li>
+                        <li><a href="/articles/6/1">Vêtements</a></li>
                     </ul>
                 </li>
                 <li><a href="">Tous les produits</a></li>
@@ -36,8 +35,8 @@
         </nav>
 
         <div class="search">
-            <form action="search/" method="GET">
-                <input type="text" placeholder="Que Cherches-tu ?">
+            <form action="/search" method="POST">
+                <input name="terme" type="text" placeholder="Que Cherches-tu ?">
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>

@@ -31,6 +31,7 @@
     
 
     <div class="suggestion">
+
         <h2>Les Nouveaux Produits:</h2>
 
         <div class="newProduit">

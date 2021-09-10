@@ -41,21 +41,12 @@ private PDO $pdo;
         FROM user WHERE id_user = :id_user");
         
         $req->execute([":id_user" => $id]);
-        $result = $req->fetch(PDO::FETCH_ASSOC);
+        $req->setFetchMode(PDO::FETCH_CLASS,User::class);
+        $result = $req->fetch();
         
+        //dd($result);
         if(!empty($result)){
-            return(new User())
-            ->setId_user($result["id_user"])
-            ->setNom($result["nom"])
-            ->setPrenom($result["prenom"])
-            ->setGenre($result["genre"])
-            ->setDate_naissance($result["date_naissance"])
-            ->setEmail($result["email"])
-            ->setAdresse($result["adresse"])
-            ->setCp($result["cp"])
-            ->setVille($result["ville"])
-            ->setTel($result["tel"])
-            ->setDate_creation($result["date_creation"]);
+            return $result;
         } else {
             return null;
         }
@@ -67,12 +58,11 @@ private PDO $pdo;
             "SELECT id_user,email,mot_passe FROM user WHERE email =:email"
         );
         $req->execute([":email"=>$email]);
-        $result = $req->fetch(PDO::FETCH_ASSOC);
+        $req->setFetchMode(PDO::FETCH_CLASS,User::class);
+        $result = $req->fetch();
+        
         if(!empty($result)) {
-            return (new User())
-                ->setId_user($result["id_user"])
-                ->setEmail($result["email"])
-                ->setmot_passe($result["mot_passe"]);
+            return $result;
         } else {
             return null;
         }

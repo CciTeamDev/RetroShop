@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Core\Database\AcceseurDB;
+use App\Entity\Produit;
 use App\Entity\Article;
 use App\Entity\NoteProduit;
 use PDO;
@@ -34,7 +35,7 @@ class ArticleRepository
         $result = $req->fetch(PDO::FETCH_ASSOC);
 
         if(!empty($result)){
-            return (new Article())
+            return (new Produit())
             ->setId_produit($result["id_produit"])
             ->setRef($result["ref"])
             ->setNom_produit($result["nom_produit"])
@@ -50,6 +51,19 @@ class ArticleRepository
     {
         $req = $this->pdo->query("SELECT * FROM produit WHERE nom_produit LIKE '%$productSearched%' ");
         return $req->fetchAll();
+    }
+
+    public function oneCateg($params)
+    {
+        $req = $this->pdo->query("SELECT * FROM produit INNER JOIN produit_categorie 
+        ON produit.id_produit =	produit_categorie.id_produit
+        WHERE produit_categorie.id_categorie = $params");
+        
+        
+
+        
+       
+        return $req->fetchAll();  
     }
 
     public function addRemarkAndNote(NoteProduit $avis): void{
