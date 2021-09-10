@@ -17,13 +17,9 @@ $artController = new ArticleController();
 //on ajoute les routes dispo dans l'appli
 
 
-$router->add("",function(){echo 'Bro wtf';},$request->getMethod());
-
-$router->add("articles/:page",[$artController, 'index'],$request->getMethod());
-
 $router->add("ficheproduit/:id", [$artController, "show"], $request->getMethod());
 
-$router->add("categorie/:id/:page",[$artController, 'index'],$request->getMethod());
+$router->add("articles/:id/:page",[$artController, 'index'],$request->getMethod());
 
 $router->add("search/:word",[$artController, 'search'],$request->getMethod());
 

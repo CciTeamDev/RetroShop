@@ -48,4 +48,18 @@ class ArticleRepository
         $req = $this->pdo->query("SELECT * FROM produit WHERE nom_produit LIKE '%$productSearched%' ");
         return $req->fetchAll();
     }
+
+    public function oneCateg($params)
+    {
+        $req = $this->pdo->query("SELECT * FROM produit INNER JOIN produit_categorie 
+        ON produit.id_produit =	produit_categorie.id_produit
+        WHERE produit_categorie.id_categorie = $params");
+        
+        
+
+        
+       
+        return $req->fetchAll();  
+    }
+
 }
