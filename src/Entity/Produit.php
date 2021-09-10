@@ -7,10 +7,7 @@ class Produit{
     private int $ref;
     private string $nom_produit;
     private string $descrip;
-<<<<<<< HEAD:src/Entity/Article.php
-=======
     private int $id_categorie;
->>>>>>> 02267c03088e43ab6f5fc97ee02c8cbca235427d:src/Entity/Produit.php
     private float $prix_unitaire;
     private  $date_en_ligne; //DateTime erreur
 

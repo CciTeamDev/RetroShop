@@ -60,7 +60,7 @@ if ($request->getFilenameExtension() === "png" || $request->getFilenameExtension
 
     $router->add("", [$artController, 'index'], $request->getMethod());
     $router->add("ficheproduit/:id", [$artController, "show"], $request->getMethod());
-    $router->add("articles/:id/:page", [$artController, 'index'], $request->getMethod());
+    $router->add("articles/:id/:page", [$artController, 'pagination'], $request->getMethod());
     $router->add("search", [$artController, 'search'], $request->getMethod());
 
 

@@ -1,6 +1,6 @@
 <?php foreach ($articles as $article) { 
 
-echo $article["nom_produit"];
+echo $article->getNom_produit();
 
 echo '<br>';
 } 

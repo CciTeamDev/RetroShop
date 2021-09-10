@@ -11,13 +11,26 @@ use App\Repository\PaginationRepository;
 
 class ArticleController extends AbstractController {
 
-    public function index ($params) {
+    
+    public function index () {
+        $title = "articles";
+        // Récupérer les objets et les stockent dans une variable sous forme de tableau 
+        $repo = new ArticleRepository();
+        $articles = $repo->getArticles();
+
+        $this->render("articles/Suggestion.php", [
+            'articles' => $articles,
+            'title'=> $title
+        ]);
+    }
+
+    public function pagination ($params) {
         $repo = new PaginationRepository();
 
         if (array_key_exists('1', $params)){
         
             $articles = $repo->paginate(Produit::class, $params[1],$params[0]);
-            $this->render("articles/Suggestion.php", [
+            $this->render("articles/Pagination.php", [
                 'articles' => $articles
             ]);
         }
