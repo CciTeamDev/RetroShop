@@ -3,11 +3,15 @@
 namespace App\Controller;
 
 use App\Core\Abstract\AbstractController;
+use App\Entity\Article;
+use App\Entity\Produit;
 use App\Repository\ArticleRepository;
 use App\Entity\User;
+use App\Repository\PaginationRepository;
 
 class ArticleController extends AbstractController {
 
+    
     public function index () {
         $title = "articles";
         // Récupérer les objets et les stockent dans une variable sous forme de tableau 
@@ -18,6 +22,18 @@ class ArticleController extends AbstractController {
             'articles' => $articles,
             'title'=> $title
         ]);
+    }
+
+    public function pagination ($params) {
+        $repo = new PaginationRepository();
+
+        if (array_key_exists('1', $params)){
+        
+            $articles = $repo->paginate(Produit::class, $params[1],$params[0]);
+            $this->render("articles/Pagination.php", [
+                'articles' => $articles
+            ]);
+        }
     }
 
     public function show($params)
