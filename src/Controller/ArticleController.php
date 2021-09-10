@@ -28,21 +28,23 @@ class ArticleController extends AbstractController {
         $repo = new ArticleRepository();
         
         $articles = $repo->getOneArticle($params[0]);
+
+        $avisClients = $repo->showRemarkAndNote($params[0]);
+        // dd($avisClients);
+       
         $this->render("articles/FicheProduit.php", [
-            'articles' => $articles
+            'articles' => $articles,
+            'avisClients' => $avisClients
         ]);
-        
     }
      
-    public function search($productSearched)
+    public function search()
     {
         $repo = new ArticleRepository();
-        
-        $articles = $repo->searchArticle($productSearched[0]);
-        //dd($articles);
         $this->render("articles/recherche.php", [
-            'articles' => $articles
+            'articles' => $repo->searchArticle(htmlspecialchars($_POST["terme"]))
         ]);
         
     }
 }
+

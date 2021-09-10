@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Core\Database\AcceseurDB;
 use App\Entity\Produit;
+use App\Entity\Article;
+use App\Entity\NoteProduit;
 use PDO;
 
 class ArticleRepository
@@ -25,7 +27,9 @@ class ArticleRepository
 
     public function getOneArticle(int $id)
     {
-        $req = $this->pdo->prepare("SELECT * FROM produit WHERE id_produit = :id_produit");
+        $req = $this->pdo->prepare("SELECT * 
+                                    FROM produit 
+                                    WHERE id_produit = :id_produit");
         $req->execute([":id_produit" => $id]);
 
         $result = $req->fetch(PDO::FETCH_ASSOC);
@@ -62,4 +66,20 @@ class ArticleRepository
         return $req->fetchAll();  
     }
 
+    public function addRemarkAndNote(NoteProduit $avis): void{
+        $req = $this->pdo->prepare("INSERT INTO note_produit (note, commentaire) 
+                                    VALUES (:note, :commentaire)");
+
+        $req->execute([
+            ":note" => $avis->getNote(),
+            ":commentaire" => $avis->getCommentaire()
+        ]);
+    }
+
+    public function showRemarkAndNote()
+    {
+        $req = $this->pdo->query("SELECT * FROM note_produit ORDER BY id_user");
+
+        return $req->fetchAll();
+    }
 }

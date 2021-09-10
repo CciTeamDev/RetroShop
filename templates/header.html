@@ -19,14 +19,14 @@
 
         <nav>
             <ul>
-                <li><a href="">Catégories</a>
+                <li><a>Catégories</a>
                     <ul>
-                        <li><a href="">Jeux Rétro</a></li>
-                        <li><a href="">Jouets Rétro</a></li>
-                        <li><a href="">Librairie</a></li>
-                        <li><a href="">Films</a></li>
-                        <li><a href="">Musique</a></li>
-                        <li><a href="">Vêtements</a></li>
+                        <li><a href="/categorie/1">Jeux Rétro</a></li>
+                        <li><a href="/categorie/2">Jouets Rétro</a></li>
+                        <li><a href="/categorie/3">Librairie</a></li>
+                        <li><a href="/categorie/4">Films</a></li>
+                        <li><a href="/categorie/5">Musique</a></li>
+                        <li><a href="/categorie/6">Vêtements</a></li>
                     </ul>
                 </li>
                 <li><a href="">Tous les produits</a></li>
@@ -35,8 +35,8 @@
         </nav>
 
         <div class="search">
-            <form action="search/" method="GET">
-                <input type="text" placeholder="Que Cherches-tu ?">
+            <form action="/search" method="POST">
+                <input name="terme" type="text" placeholder="Que Cherches-tu ?">
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>

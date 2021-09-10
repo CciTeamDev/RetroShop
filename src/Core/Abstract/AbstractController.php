@@ -17,7 +17,7 @@ abstract class AbstractController{
         if(!$title){
             $title = 'Titre par défault';
         }
-        include self::BASEPATH.'/hfn/header.php';
+        include self::BASEPATH.'/header.html';
         
         $absolutPath = self::BASEPATH.$path;
         include $absolutPath;
@@ -25,7 +25,6 @@ abstract class AbstractController{
         echo ob_get_clean();//vidange de la mémoire tampon et fermeture;
         //dump(ob_get_clean());
     
-        
     }
 
     
